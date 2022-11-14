@@ -1,0 +1,60 @@
+---
+import data from '../data/site.json';
+import SkillItem from './SkillItem.astro';
+
+const { skills } = data;
+---
+
+<section id='skills'>
+  <h2 class='ff-heading fs-heading'>My Skillset</h2>
+
+  <div class='container'>
+    <div id='comfortable' class='category-wrapper'>
+      <h3 class='fs-subheading'>Tech I'm comfortable with</h3>
+      <ul role='list' class='skills-container'>
+        <>
+          {skills.comfortable.map((skill) => <SkillItem skill={skill} />)}
+        </>
+      </ul>
+    </div>
+    <div id='mastering' class='category-wrapper'>
+      <h3 class='fs-subheading'>Tech I'm currently mastering</h3>
+      <ul role='list' class='skills-container'>
+        <>
+          {skills.mastering.map((skill) => <SkillItem skill={skill} />)}
+        </>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style lang='scss'>
+  #skills {
+    h2 {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    .category-wrapper {
+      padding: 2em 0;
+
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+    }
+
+    .skills-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4em;
+      flex-wrap: wrap;
+    }
+  }
+</style>

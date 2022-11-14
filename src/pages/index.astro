@@ -2,6 +2,7 @@
 import Head from '../components/Head.astro';
 import Navigation from '../components/Navigation.astro';
 import Landing from '../components/Landing.astro';
+import Skills from '../components/Skills.astro';
 ---
 
 <!DOCTYPE html>
@@ -12,29 +13,7 @@ import Landing from '../components/Landing.astro';
 
     <main>
       <Landing />
-
-      <section id='skills'>
-        <h2>Skills</h2>
-
-        <div class='container'>
-          <div class='comfortable'>
-            <h3>Comfortable</h3>
-            <ul role='list'>
-              <li><i class='devicon-html5-plain colored'></i></li>
-              <li><i class='devicon-css3-plain colored'></i></li>
-              <li><i class='devicon-javascript-plain colored'></i></li>
-            </ul>
-          </div>
-          <div class='mastering'>
-            <h3>Mastering</h3>
-            <ul role='list'>
-              <li><i class='devicon-react-plain colored'></i></li>
-              <li><i class='devicon-typescript-plain colored'></i></li>
-              <li><i class='devicon-denojs-plain colored'></i></li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <Skills />
 
       <section id='work'>
         <h2>Work</h2>

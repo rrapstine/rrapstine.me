@@ -1,0 +1,29 @@
+---
+interface Props {
+  skill: {
+    name: string;
+    icon: string;
+    colored: boolean;
+  };
+}
+
+const { skill } = Astro.props;
+---
+
+<li class='skill-item'>
+  <i class={`devicon-${skill.icon}-plain ${skill.colored ? 'colored' : ''}`}></i>
+  <span>{skill.name}</span>
+</li>
+
+<style lang='scss'>
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 0;
+    i {
+      font-size: 3em;
+      margin-bottom: 0.25em;
+    }
+  }
+</style>

@@ -13,21 +13,21 @@
   ],
   "skills": {
     "comfortable": [
-      { "name": "HTML5", "icon": "html5" },
-      { "name": "CSS3", "icon": "css3" },
-      { "name": "JavaScript", "icon": "javascript" },
-      { "name": "TypeScript", "icon": "typescript" },
-      { "name": "PHP", "icon": "php" },
-      { "name": "Laravel", "icon": "laravel" },
-      { "name": "Git", "icon": "git" },
-      { "name": "MySQL", "icon": "mysql" },
-      { "name": "SASS", "icon": "sass" },
-      { "name": "Tailwind", "icon": "tailwindcss" }
+      { "name": "HTML5", "icon": "html5", "colored": true },
+      { "name": "CSS3", "icon": "css3", "colored": true },
+      { "name": "JavaScript", "icon": "javascript", "colored": true },
+      { "name": "TypeScript", "icon": "typescript", "colored": true },
+      { "name": "PHP", "icon": "php", "colored": true },
+      { "name": "Laravel", "icon": "laravel", "colored": true },
+      { "name": "Git", "icon": "git", "colored": true },
+      { "name": "MySQL", "icon": "mysql", "colored": true },
+      { "name": "SASS", "icon": "sass", "colored": true },
+      { "name": "Tailwind", "icon": "tailwindcss", "colored": true }
     ],
     "mastering": [
-      { "name": "React", "icon": "react" },
-      { "name": "Next.js", "icon": "nextjs" },
-      { "name": "Deno", "icon": "denojs" }
+      { "name": "React", "icon": "react", "colored": true },
+      { "name": "Next.js", "icon": "nextjs", "colored": false },
+      { "name": "Deno", "icon": "denojs", "colored": false }
     ]
   },
   "work": [
