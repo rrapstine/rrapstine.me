@@ -1,89 +1,82 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
+import Head from '../components/Head.astro';
+import Navigation from '../components/Navigation.astro';
+import Landing from '../components/Landing.astro';
 ---
 
-<MainLayout>
-  <header>
-    <nav>
-      <ul role='list'>
-        <li><a href='#'>Skills</a></li>
-        <li><a href='#work'>Work</a></li>
-        <li><a href='#contact'>Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+<!DOCTYPE html>
+<html lang='en'>
+  <Head />
+  <body>
+    <Navigation />
 
-  <main>
-    <section id='landing'>
-      <div class='container'>
-        <h1>Richard Rapstine</h1>
-        <p>Father. Developer. Adventurer.</p>
-      </div>
-    </section>
+    <main>
+      <Landing />
 
-    <section id='skills'>
-      <h2>Skills</h2>
+      <section id='skills'>
+        <h2>Skills</h2>
 
-      <div class='container'>
-        <div class='comfortable'>
-          <h3>Comfortable</h3>
-          <ul>
-            <li><i class='devicon-html5-plain colored'></i></li>
-            <li><i class='devicon-css3-plain colored'></i></li>
-            <li><i class='devicon-javascript-plain colored'></i></li>
-          </ul>
+        <div class='container'>
+          <div class='comfortable'>
+            <h3>Comfortable</h3>
+            <ul role='list'>
+              <li><i class='devicon-html5-plain colored'></i></li>
+              <li><i class='devicon-css3-plain colored'></i></li>
+              <li><i class='devicon-javascript-plain colored'></i></li>
+            </ul>
+          </div>
+          <div class='mastering'>
+            <h3>Mastering</h3>
+            <ul role='list'>
+              <li><i class='devicon-react-plain colored'></i></li>
+              <li><i class='devicon-typescript-plain colored'></i></li>
+              <li><i class='devicon-denojs-plain colored'></i></li>
+            </ul>
+          </div>
         </div>
-        <div class='mastering'>
-          <h3>Mastering</h3>
-          <ul role='list'>
-            <li><i class='devicon-react-plain colored'></i></li>
-            <li><i class='devicon-typescript-plain colored'></i></li>
-            <li><i class='devicon-denojs-plain colored'></i></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id='work'>
-      <h2>Work</h2>
+      <section id='work'>
+        <h2>Work</h2>
 
-      <div class='container'>
-        <div class='project'>
-          <h3>Project 1</h3>
-          <p>Project 1 description</p>
+        <div class='container'>
+          <div class='project'>
+            <h3>Project 1</h3>
+            <p>Project 1 description</p>
+          </div>
+          <div class='project'>
+            <h3>Project 2</h3>
+            <p>Project 2 description</p>
+          </div>
+          <div class='project'>
+            <h3>Project 3</h3>
+            <p>Project 3 description</p>
+          </div>
         </div>
-        <div class='project'>
-          <h3>Project 2</h3>
-          <p>Project 2 description</p>
-        </div>
-        <div class='project'>
-          <h3>Project 3</h3>
-          <p>Project 3 description</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id='contact'>
-      <h2>Contact</h2>
+      <section id='contact'>
+        <h2>Contact</h2>
 
-      <div class='container'>
-        <div class='contact'>
-          <h3>Phone</h3>
-          <p>555-555-5555</p>
+        <div class='container'>
+          <div class='contact'>
+            <h3>Phone</h3>
+            <p>555-555-5555</p>
+          </div>
+          <div class='contact'>
+            <h3>Email</h3>
+            <p>example@example.com</p>
+          </div>
+          <div class='contact'>
+            <h3>Socials</h3>
+            <ul role='list'>
+              <li><a href='#'><i class='devicon-github-plain colored'></i></a></li>
+              <li><a href='#'><i class='devicon-linkedin-plain colored'></i></a></li>
+              <li><a href='#'><i class='devicon-twitter-plain colored'></i></a></li>
+            </ul>
+          </div>
         </div>
-        <div class='contact'>
-          <h3>Email</h3>
-          <p>example@example.com</p>
-        </div>
-        <div class='contact'>
-          <h3>Socials</h3>
-          <ul role='list'>
-            <li><a href='#'><i class='devicon-github-plain colored'></i></a></li>
-            <li><a href='#'><i class='devicon-linkedin-plain colored'></i></a></li>
-            <li><a href='#'><i class='devicon-twitter-plain colored'></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-</MainLayout>
+      </section>
+    </main>
+  </body>
+</html>

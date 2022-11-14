@@ -1,0 +1,50 @@
+---
+import data from '../data/site.json';
+
+const { nav } = data;
+---
+
+<nav class='nav-container'>
+  <ul class='nav-list' role='list'>
+    <>
+      {
+        nav.map((link) => (
+          <li class='nav-item'>
+            <a href={link.link} class='text-dark fs-nav'>
+              {link.name}
+            </a>
+          </li>
+        ))
+      }
+    </>
+  </ul>
+</nav>
+
+<style lang='scss'>
+  .nav-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .nav-item {
+    padding: 3em 4em;
+
+    a {
+      text-decoration: none;
+
+      &.active,
+      &:hover,
+      &:focus,
+      &:active {
+        color: var(--primary-white);
+      }
+    }
+  }
+</style>
