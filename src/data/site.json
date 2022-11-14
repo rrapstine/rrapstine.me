@@ -1,0 +1,57 @@
+{
+  "title": "Richard Rapstine | Full Stack Developer",
+  "description": "Richard Rapstine - Portfolio, Full stack developer",
+  "url": "https://rrapstine.me/",
+  "author": "Richard Rapstine",
+  "profile_pic": "/assets/images/me.png",
+  "resume": "/assets/docs/resume.pdf",
+  "nav": [
+    { "link": "#skills", "name": "Skills" },
+    { "link": "#work", "name": "Work" },
+    { "link": "#contact", "name": "Contact" }
+  ],
+  "skills": {
+    "comfortable": [
+      { "name": "HTML5", "icon": "html5" },
+      { "name": "CSS3", "icon": "css3" },
+      { "name": "JavaScript", "icon": "javascript" },
+      { "name": "TypeScript", "icon": "typescript" },
+      { "name": "PHP", "icon": "php" },
+      { "name": "Laravel", "icon": "laravel" },
+      { "name": "Git", "icon": "git" },
+      { "name": "MySQL", "icon": "mysql" },
+      { "name": "SASS", "icon": "sass" },
+      { "name": "Tailwind", "icon": "tailwindcss" }
+    ],
+    "mastering": [
+      { "name": "React", "icon": "react" },
+      { "name": "Next.js", "icon": "nextjs" },
+      { "name": "Deno", "icon": "denojs" }
+    ]
+  },
+  "work": [
+    {
+      "title": "Community EMS",
+      "description": "Homepage for Community EMS in Hondo, TX",
+      "image": "/assets/images/",
+      "link": "https://communityems.net/"
+    }
+  ],
+  "socials": [
+    {
+      "link": "https://github.com/rrapstine",
+      "title": "GitHub",
+      "icon": "github"
+    },
+    {
+      "link": "https://www.linkedin.com/in/rrapstine/",
+      "title": "LinkedIn",
+      "icon": "linkedin"
+    },
+    {
+      "link": "https://twitter.com/rrapstine",
+      "title": "Twitter",
+      "icon": "twitter"
+    }
+  ]
+}

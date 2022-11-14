@@ -1,0 +1,29 @@
+---
+import '../styles/reset.css';
+import '../styles/globals.css';
+import data from '../data/site.json';
+
+const { title, description } = data;
+---
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <meta name='generator' content={Astro.generator} />
+  <meta name='description' content={description} />
+  <meta name='robots' content='index, follow' />
+  <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+
+  <title>{title}</title>
+
+  <link
+    rel='stylesheet'
+    href='https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css'
+  />
+  <link rel='preconnect' href='https://fonts.googleapis.com' />
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+  <link
+    href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap'
+    rel='stylesheet'
+  />
+</head>
