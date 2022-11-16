@@ -25,17 +25,21 @@ const { nav } = data;
   .nav-container {
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
   }
 
   .nav-list {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-evenly;
+    gap: clamp(1em, 4em, 4em);
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .nav-item {
-    padding: 3em 4em;
+    padding-top: 3em;
 
     a {
       text-decoration: none;

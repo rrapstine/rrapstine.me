@@ -46,10 +46,12 @@ const { socials, resume } = data;
       }
 
       .container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 2em;
-        justify-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2em;
 
         h3 {
           margin-bottom: 1em;
