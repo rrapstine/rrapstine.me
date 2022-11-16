@@ -41,6 +41,31 @@ const { item } = Astro.props;
     border-radius: 25px;
     max-width: 350px;
     background-color: var(--primary-black);
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 25px;
+      box-shadow: 0 0 1rem -0.25em var(--primary-blue);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      transform: scale(1.05, 1.05);
+
+      &:after {
+        opacity: 1;
+      }
+    }
 
     img {
       border-radius: 25px 25px 0 0;
