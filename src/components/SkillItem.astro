@@ -1,4 +1,6 @@
 ---
+import SkillIcon from './SkillIcon.astro';
+
 interface Props {
   skill: {
     name: string;
@@ -11,7 +13,7 @@ const { skill } = Astro.props;
 ---
 
 <li class='skill-item'>
-  <i class={`devicon-${skill.icon}-plain ${skill.colored ? 'colored' : ''}`}></i>
+  <SkillIcon icon={skill.icon} colored={skill.colored} size='3' />
   <span>{skill.name}</span>
 </li>
 
@@ -21,9 +23,5 @@ const { skill } = Astro.props;
     flex-direction: column;
     align-items: center;
     padding: 1em 0;
-    i {
-      font-size: 3em;
-      margin-bottom: 0.25em;
-    }
   }
 </style>

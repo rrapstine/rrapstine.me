@@ -6,11 +6,11 @@ const { skills } = data;
 ---
 
 <section id='skills'>
-  <h2 class='ff-heading fs-heading'>My Skillset</h2>
+  <h2 class='ff-heading fs-heading fw-bold'>My Skillset</h2>
 
   <div class='container'>
     <div id='comfortable' class='category-wrapper'>
-      <h3 class='fs-subheading'>Tech I'm comfortable with</h3>
+      <h3 class='fs-subheading fw-medium'>Tech I'm comfortable with</h3>
       <ul role='list' class='skills-container'>
         <>
           {skills.comfortable.map((skill) => <SkillItem skill={skill} />)}
@@ -18,7 +18,7 @@ const { skills } = data;
       </ul>
     </div>
     <div id='mastering' class='category-wrapper'>
-      <h3 class='fs-subheading'>Tech I'm currently mastering</h3>
+      <h3 class='fs-subheading fw-medium'>Tech I'm currently mastering</h3>
       <ul role='list' class='skills-container'>
         <>
           {skills.mastering.map((skill) => <SkillItem skill={skill} />)}

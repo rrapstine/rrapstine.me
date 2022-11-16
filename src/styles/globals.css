@@ -24,6 +24,7 @@
   --fs-700: 2.5rem;
   --fs-900: 4rem;
 
+  --fs-caption: var(--fs-300);
   --fs-body: var(--fs-400);
   --fs-nav: var(--fs-500);
   --fs-subheading: var(--fs-600);
@@ -50,6 +51,10 @@
 
 .ff-heading {
   font-family: var(--ff-heading);
+}
+
+.fs-caption {
+  font-size: var(--fs-caption);
 }
 
 .fs-body {
@@ -96,4 +101,10 @@ body {
 /* Sections */
 section {
   padding: 4em;
+}
+
+/* Anchor Tags */
+a {
+  color: var(--primary-blue);
+  text-decoration: none;
 }

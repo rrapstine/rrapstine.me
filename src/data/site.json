@@ -34,8 +34,15 @@
     {
       "title": "Community EMS",
       "description": "Homepage for Community EMS in Hondo, TX",
-      "image": "/assets/images/",
-      "link": "https://communityems.net/"
+      "image": "/assets/images/work/community-ems.webp",
+      "url": "https://communityems.net/",
+      "github": "https://github.com/rrapstine/community-ems",
+      "tech": [
+        { "name": "HTML5", "icon": "html5", "colored": true },
+        { "name": "CSS3", "icon": "css3", "colored": true },
+        { "name": "TypeScript", "icon": "typescript", "colored": true },
+        { "name": "Tailwind", "icon": "tailwindcss", "colored": true }
+      ]
     }
   ],
   "socials": [

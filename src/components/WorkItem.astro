@@ -1,0 +1,78 @@
+---
+import SkillIcon from './SkillIcon.astro';
+
+interface Props {
+  item: {
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+    github?: string;
+    tech: {
+      icon: string;
+      colored: boolean;
+    }[];
+  };
+}
+
+const { item } = Astro.props;
+---
+
+<li class='project'>
+  <a href={item.url} target='_blank'><img src={item.image} alt='' /></a>
+  <div class='project-info'>
+    <h3 class='fs-subheading'>{item.title}</h3>
+    <p class='text-dark'>{item.description}</p>
+    <ul role='list' class='project-skills'>
+      {item.tech.map((tech) => <SkillIcon icon={tech.icon} colored={tech.colored} size='1' />)}
+    </ul>
+    {
+      item.github && (
+        <a href={item.url} target='_blank'>
+          <SkillIcon icon='github' colored='false' size='2' fontColor='white' />
+        </a>
+      )
+    }
+  </div>
+</li>
+
+<style lang='scss'>
+  .project {
+    border-radius: 25px;
+    max-width: 350px;
+    background-color: var(--primary-black);
+
+    img {
+      border-radius: 25px 25px 0 0;
+      width: 100%;
+    }
+
+    .project-info {
+      position: relative;
+      padding: 2em;
+      text-align: center;
+
+      h3 {
+        padding-bottom: 0.25em;
+        margin-bottom: 0.25em;
+        border-bottom: 1px solid var(--primary-gray);
+      }
+
+      p {
+        margin-bottom: 2em;
+      }
+
+      .project-skills {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+      }
+
+      a {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+      }
+    }
+  }
+</style>

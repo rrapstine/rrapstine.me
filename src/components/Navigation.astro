@@ -1,4 +1,5 @@
 ---
+// TODO: Write javascript to add active class to nav item on scroll
 import data from '../data/site.json';
 
 const { nav } = data;
@@ -10,7 +11,7 @@ const { nav } = data;
       {
         nav.map((link) => (
           <li class='nav-item'>
-            <a href={link.link} class='text-dark fs-nav'>
+            <a href={link.link} class='text-dark fs-nav fw-medium'>
               {link.name}
             </a>
           </li>

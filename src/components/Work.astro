@@ -1,0 +1,62 @@
+---
+import data from '../data/site.json';
+import WorkItem from './WorkItem.astro';
+
+const { work } = data;
+---
+
+<section id='work'>
+  <h2 class='fs-heading ff-heading fw-bold'>Work</h2>
+
+  <div class='container'>
+    <ul role='list' class='work-list'>
+      <>
+        {work.map((item) => <WorkItem item={item} />)}
+      </>
+    </ul>
+  </div>
+
+  <p class='caption'>
+    My <a href='https://github.com/rrapstine' class='fs-caption'
+      ><i class='devicon-github-plain'></i>
+    </a> is always the best way to stay up-to-date on my portfolio
+  </p>
+</section>
+
+<style lang='scss'>
+  // Set the maximum number of columns here
+  $maxColumns: 3;
+
+  #work {
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .work-list {
+      display: grid;
+      grid-gap: 4em;
+      place-items: center;
+      padding: 2em;
+
+      grid-auto-flow: column;
+    }
+
+    .project {
+      @for $i from 1 through $maxColumns {
+        &:nth-child(#{$maxColumns}n + #{$i}) {
+          grid-column: $i;
+        }
+      }
+    }
+
+    .caption {
+      text-align: center;
+      color: var(--primary-gray);
+
+      i {
+        font-size: 1.5rem;
+        color: var(--primary-white);
+      }
+    }
+  }
+</style>
