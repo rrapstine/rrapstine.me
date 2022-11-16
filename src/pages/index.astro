@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation.astro';
 import Landing from '../components/Landing.astro';
 import Skills from '../components/Skills.astro';
 import Work from '../components/Work.astro';
+import Contact from '../components/Contact.astro';
 ---
 
 <!DOCTYPE html>
@@ -16,29 +17,7 @@ import Work from '../components/Work.astro';
       <Landing />
       <Skills />
       <Work />
-
-      <section id='contact'>
-        <h2>Contact</h2>
-
-        <div class='container'>
-          <div class='contact'>
-            <h3>Phone</h3>
-            <p>555-555-5555</p>
-          </div>
-          <div class='contact'>
-            <h3>Email</h3>
-            <p>example@example.com</p>
-          </div>
-          <div class='contact'>
-            <h3>Socials</h3>
-            <ul role='list'>
-              <li><a href='#'><i class='devicon-github-plain colored'></i></a></li>
-              <li><a href='#'><i class='devicon-linkedin-plain colored'></i></a></li>
-              <li><a href='#'><i class='devicon-twitter-plain colored'></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <Contact />
     </main>
   </body>
 </html>
