@@ -1,5 +1,4 @@
 ---
-// TODO: Write javascript to add active class to nav item on scroll
 import data from '../data/site.json';
 
 const { nav } = data;
@@ -21,7 +20,59 @@ const { nav } = data;
   </ul>
 </nav>
 
+<script>
+  // Add active class to nav item on scroll
+  (() => {
+    const nav = document.querySelector('nav') as HTMLElement;
+    const sections = document.querySelectorAll('section') as NodeListOf<HTMLElement>;
+
+    const options = {
+      rootMargin: `${nav.offsetHeight * -1}px`,
+      threshold: 0.425,
+    };
+
+    const observer = new IntersectionObserver(navCheck, options);
+
+    function navCheck(entries: IntersectionObserverEntry[]) {
+      entries.forEach((entry) => {
+        const section = entry.target.id;
+        const navLink = document.querySelector(`nav a[href="#${section}"]`) as HTMLElement;
+
+        if (!navLink) return;
+
+        if (entry.isIntersecting) {
+          navLink.classList.add('active');
+        } else {
+          navLink.classList.remove('active');
+        }
+      });
+    }
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  })();
+
+  // Change background color of nav on scroll
+  (() => {
+    const nav = document.querySelector('nav') as HTMLElement;
+    const landing = document.querySelector('#landing') as HTMLElement;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > landing.offsetHeight - nav.offsetHeight) {
+        nav.classList.add('background');
+      } else {
+        nav.classList.remove('background');
+      }
+    });
+  })();
+</script>
+
 <style lang='scss'>
+  .background {
+    background-color: var(--primary-background);
+  }
+
   .nav-container {
     position: fixed;
     top: 0;
@@ -39,7 +90,7 @@ const { nav } = data;
   }
 
   .nav-item {
-    padding-top: 3em;
+    padding: 3em 0;
 
     a {
       text-decoration: none;
