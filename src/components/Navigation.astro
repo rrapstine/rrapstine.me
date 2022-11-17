@@ -23,10 +23,10 @@ const { nav } = data;
 </nav>
 
 <script>
+  // Use IntersectionObserver to determine which link is active based on scroll position
   (() => {
     const sections = document.querySelectorAll('section') as NodeListOf<HTMLElement>;
     const navItems = [...document.querySelectorAll('.nav-item')] as HTMLElement[];
-    console.log('navItems', navItems);
 
     const options = {
       threshold: 0,
@@ -38,7 +38,6 @@ const { nav } = data;
         if (!entry.isIntersecting) return;
 
         const id = entry.target.getAttribute('id');
-        const nav = navItems.find((el) => el.dataset.link === id);
 
         navItems.forEach((item) => {
           item.classList.remove('active');
@@ -52,6 +51,26 @@ const { nav } = data;
 
     sections.forEach((section) => {
       observer.observe(section);
+    });
+  })();
+
+  // Smooth scroll to clicked link's associated section
+  (() => {
+    const navLinks = document.querySelectorAll('.nav-item a') as NodeListOf<HTMLAnchorElement>;
+
+    navLinks.forEach((link: HTMLAnchorElement) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // @ts-ignore
+        const target = document.querySelector(link.getAttribute('href'));
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+      });
     });
   })();
 </script>
@@ -75,6 +94,34 @@ const { nav } = data;
   }
 
   .nav-item {
+    @media (min-width: 500px) {
+      &:first-of-type {
+        display: none;
+      }
+
+      visibility: visible;
+      margin-right: 4em;
+
+      &:after {
+        display: none;
+      }
+
+      &.active,
+      &:hover,
+      &:focus,
+      &:active {
+        a {
+          color: var(--primary-white);
+          font-size: 1.5em;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+    }
+
     visibility: hidden;
     position: relative;
     width: 100%;
@@ -101,17 +148,6 @@ const { nav } = data;
       background-color: var(--primary-gray);
       border-radius: 50%;
       transition: all 0.25s ease;
-    }
-
-    a {
-      text-decoration: none;
-
-      &.active,
-      &:hover,
-      &:focus,
-      &:active {
-        color: var(--primary-white);
-      }
     }
   }
 </style>
