@@ -99,6 +99,11 @@
   font-weight: var(--fw-bold);
 }
 
+/* HTML */
+html {
+  scrollbar-width: none;
+}
+
 /* Body */
 body {
   font-family: var(--ff-body);
@@ -106,11 +111,27 @@ body {
   font-weight: var(--fw-regular);
   color: var(--primary-white);
   background-color: var(--primary-background);
+  overflow-y: hidden;
+}
+
+/* Main */
+main {
+  scroll-snap-type: mandatory;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 /* Sections */
 section {
   padding: 4em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* Anchor Tags */
