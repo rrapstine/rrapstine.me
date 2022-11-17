@@ -1,50 +1,29 @@
-# Welcome to [Astro](https://astro.build)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/withastro/astro/tree/latest/examples/basics)
+# rrapstine.me
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+My personal development portfolio. Its primary function is to showcase my abilities to prospective employers. It isn't the prettiest or most flashy, but since I am not a designer, I feel that it performs its function adequately.
 
 
-## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Tech Stack
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+**Client:** [Astro](https://www.astro.build), TypeScript, SCSS
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+**Server:** *none*
 
-Any static assets, like images, can be placed in the `public/` directory.
 
-## 🧞 Commands
+## FAQ
 
-All commands are run from the root of the project, from a terminal:
+#### Why Astro?
 
-| Command                | Action                                             |
-| :--------------------- | :------------------------------------------------- |
-| `npm install`          | Installs dependencies                              |
-| `npm run dev`          | Starts local dev server at `localhost:3000`        |
-| `npm run build`        | Build your production site to `./dist/`            |
-| `npm run preview`      | Preview your build locally, before deploying       |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
-| `npm run astro --help` | Get help using the Astro CLI                       |
+Back in the day I used to use [Pug](https://www.pugjs.org) for static websites because I like templating. [Astro](https://www.astro.build) provides this and more. It is built on [Vite](https://www.vitejs.dev), so I get realtime browser updates, efficient bundling, tree shaking, and effortless plugin integration, if I decide I need them. Plus, it is lightweight and **FAST**! Honestly, I don't think I will ever develop another static website without it.
 
-## 👀 Want to learn more?
+#### Why not a library, like React?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Originally, I was going to build this site using [React](https://www.reactjs.org), purely as a way to showcase to prospective employers that I can use the library. After some reflection and deliberation, however, I decided that I would rather showcase my understanding of web development and how that understanding can, and should, affect the chosen tech stack.
+
+In my personal opinion, far too many developers reach for a frontend library when they simply do not need one. Libraries like [React](https://www.reactjs.org), [Vue](https://www.vuejs.org), [Svelte](https://www.svelte.dev), [Angular](https://www.angular.io), [Solid](https://www.solidjs.com)...they're tools. Not every problem is a nail requiring the "React Hammer".
+
+In the case of a static site, like [rrapstine.me](https://www.rrapstine.me), all that I needed from my tech stack was templating, which is accomplished by [Astro](https://www.astro.build) **AND** it only ships the javascript that my page actually needs to function properly. I do not need a full shadow DOM when the only interactivity on my page is an event listener or two.
+
