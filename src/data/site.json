@@ -28,7 +28,8 @@
     "mastering": [
       { "name": "React", "icon": "react", "colored": true },
       { "name": "Next.js", "icon": "nextjs", "colored": false },
-      { "name": "Deno", "icon": "denojs", "colored": false }
+      { "name": "Deno", "icon": "denojs", "colored": false },
+      { "name": "Python", "icon": "python", "colored": true }
     ]
   },
   "work": [
@@ -43,6 +44,21 @@
         { "name": "CSS3", "icon": "css3", "colored": true },
         { "name": "TypeScript", "icon": "typescript", "colored": true },
         { "name": "Tailwind", "icon": "tailwindcss", "colored": true }
+      ]
+    },
+    {
+      "title": "Laravel Task Manager",
+      "description": "Simple task manager with project support built with Laravel. WIP",
+      "image": "/assets/images/work/laravel-task-manager.png",
+      "url": "https://github.com/rrapstine/laravel-task-manager",
+      "github": "https://github.com/rrapstine/laravel-task-manager",
+      "tech": [
+        { "name": "HTML5", "icon": "html5", "colored": true },
+        { "name": "CSS3", "icon": "css3", "colored": true },
+        { "name": "JavaScript", "icon": "javascript", "colored": true },
+        { "name": "Tailwind", "icon": "tailwindcss", "colored": true },
+        { "name": "Laravel", "icon": "laravel", "colored": true },
+        { "name": "MySQL", "icon": "mysql", "colored": true }
       ]
     }
   ],
