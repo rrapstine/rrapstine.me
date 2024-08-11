@@ -18,18 +18,21 @@
       { "name": "CSS3", "icon": "css3", "colored": true },
       { "name": "JavaScript", "icon": "javascript", "colored": true },
       { "name": "TypeScript", "icon": "typescript", "colored": true },
+      { "name": "React", "icon": "react", "colored": true },
+      { "name": "Tailwind", "icon": "tailwindcss", "colored": true },
       { "name": "PHP", "icon": "php", "colored": true },
       { "name": "Laravel", "icon": "laravel", "colored": true },
       { "name": "Git", "icon": "git", "colored": true },
-      { "name": "MySQL", "icon": "mysql", "colored": true },
-      { "name": "SASS", "icon": "sass", "colored": true },
-      { "name": "Tailwind", "icon": "tailwindcss", "colored": true }
+      { "name": "MySQL", "icon": "mysql", "colored": true }
+      
     ],
     "mastering": [
-      { "name": "React", "icon": "react", "colored": true },
-      { "name": "Next.js", "icon": "nextjs", "colored": false },
-      { "name": "Deno", "icon": "denojs", "colored": false },
-      { "name": "Python", "icon": "python", "colored": true }
+      { "name": "Svelte", "icon": "svelte", "colored": true },
+      { "name": "Go", "icon": "go", "colored": true },
+      { "name": "Python", "icon": "python", "colored": true },
+      { "name": "Bun", "icon": "bun", "colored": true },
+      { "name": "Docker", "icon": "docker", "colored": true },
+      { "name": "Bash", "icon": "bash", "colored": false }
     ]
   },
   "work": [
