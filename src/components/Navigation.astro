@@ -5,7 +5,18 @@ const { nav } = data;
 ---
 
 <nav class='nav-container'>
-  <ul class='nav-list' role='list'>
+  <!-- Hamburger Menu Button (Mobile Only) -->
+  <button
+    class='hamburger-btn'
+    aria-label='Toggle navigation menu'
+    aria-expanded='false'>
+    <span class='hamburger-line'></span>
+    <span class='hamburger-line'></span>
+    <span class='hamburger-line'></span>
+  </button>
+
+  <!-- Desktop Navigation -->
+  <ul class='nav-list desktop-nav' role='list'>
     <>
       {
         nav.map((link) => (
@@ -20,6 +31,25 @@ const { nav } = data;
       }
     </>
   </ul>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class='mobile-menu-overlay'>
+    <ul class='nav-list mobile-nav' role='list'>
+      <>
+        {
+          nav.map((link) => (
+            <li
+              class={`nav-item ${link.name === 'Landing' ? 'active' : ''}`}
+              data-link={link.name.toLowerCase()}>
+              <a href={link.link} class='text-dark fs-nav fw-medium'>
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </>
+    </ul>
+  </div>
 </nav>
 
 <script>
@@ -74,6 +104,39 @@ const { nav } = data;
     });
   })();
 
+  // Hamburger Menu Toggle
+  (() => {
+    const hamburgerBtn = document.querySelector('.hamburger-btn') as HTMLButtonElement;
+    const mobileMenu = document.querySelector('.mobile-menu-overlay') as HTMLElement;
+    const body = document.body;
+
+    if (!hamburgerBtn || !mobileMenu) return;
+
+    const toggleMenu = () => {
+      const isOpen = mobileMenu.classList.contains('open');
+      hamburgerBtn.setAttribute('aria-expanded', (!isOpen).toString());
+      hamburgerBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      body.classList.toggle('menu-open');
+    };
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking on overlay or links
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu || e.target.closest('.nav-item a')) {
+        toggleMenu();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        toggleMenu();
+      }
+    });
+  })();
+
   // Make navigation more transparent when over landing section
   (() => {
     const navContainer = document.querySelector('.nav-container') as HTMLElement;
@@ -112,6 +175,105 @@ const { nav } = data;
     align-items: flex-start;
     justify-content: center;
     padding-top: var(--space-8);
+  }
+
+  /* Hamburger Button */
+  .hamburger-btn {
+    display: none;
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: 101;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    backdrop-filter: blur(10px);
+
+    .hamburger-line {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-text-primary);
+      margin: 3px 0;
+      transition: all var(--transition-fast);
+      border-radius: 1px;
+    }
+
+    &.open .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    &.open .hamburger-line:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    &.open .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    &:hover {
+      border-color: var(--color-accent-primary);
+      background: var(--color-accent-primary);
+      transform: scale(1.05);
+
+      .hamburger-line {
+        background: var(--color-text-primary);
+      }
+    }
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--color-bg-secondary);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid var(--color-border);
+    z-index: 99;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    padding-top: var(--space-20);
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: 0 var(--space-6);
+    }
+
+    .nav-item a {
+      display: block;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-fast);
+      text-align: center;
+      font-size: var(--font-size-base);
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      transform: none;
+
+      &:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-accent-primary);
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  /* Body styles when menu is open */
+  body.menu-open {
+    overflow: hidden;
   }
 
   .nav-list {
@@ -238,14 +400,20 @@ const { nav } = data;
 
   /* Mobile styles */
   @media (max-width: 1079px) {
-    .nav-item {
-      a {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed;
-        transform: none;
-        padding: var(--space-1) var(--space-2);
-        font-size: var(--font-size-xs);
-      }
+    .nav-container {
+      width: 0; /* Hide the vertical sidebar on mobile */
+    }
+
+    .hamburger-btn {
+      display: block;
+    }
+
+    .mobile-menu-overlay {
+      display: block;
+    }
+
+    .desktop-nav {
+      display: none;
     }
   }
 </style>
