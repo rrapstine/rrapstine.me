@@ -2,34 +2,151 @@
 ---
 
 <section id='landing'>
+  <div class='floating-shapes'>
+    <div class='shape shape-1'></div>
+    <div class='shape shape-2'></div>
+    <div class='shape shape-3'></div>
+  </div>
+
   <div class='container'>
-    <h1 class='ff-heading fs-bigheading fw-bold'>Richard Rapstine</h1>
-    <p class='text-white fs-subheading fw-medium'>
-      <span class='text-dark'>Father. Adventurer.</span> Developer.
+    <h1>Richard Rapstine</h1>
+    <p>
+      <span>Father. Adventurer.</span> Developer.
     </p>
   </div>
 </section>
 
 <style lang='scss'>
   #landing {
-    height: 100vh;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.7) 80%, rgb(0, 0, 0) 100%),
-      url(/assets/images/landing-image.webp);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url(/assets/images/landing-image.webp);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      z-index: -2;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(10, 10, 15, 0.95) 0%,
+        rgba(10, 10, 15, 0.85) 50%,
+        rgba(10, 10, 15, 0.95) 100%
+      );
+      backdrop-filter: blur(1px);
+      z-index: -1;
+    }
 
     .container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      max-width: 800px;
       text-align: center;
+      z-index: 1;
 
       h1 {
-        line-height: 1.15;
-        margin-bottom: 0.25em;
+        font-size: clamp(var(--font-size-4xl), 8vw, var(--font-size-6xl));
+        font-weight: var(--font-weight-bold);
+        background: var(--color-accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--space-6);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-light);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-8);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+        span {
+          color: var(--color-accent-primary);
+          font-weight: var(--font-weight-medium);
+        }
+      }
+    }
+
+    /* Floating elements for visual interest */
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--color-accent-gradient);
+      opacity: 0.1;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 200px;
+      height: 200px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 150px;
+      height: 150px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 5s;
+    }
+
+    .shape-3 {
+      width: 100px;
+      height: 100px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 10s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      33% {
+        transform: translateY(-20px) rotate(120deg);
+      }
+      66% {
+        transform: translateY(10px) rotate(240deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .shape {
+        display: none;
       }
     }
   }

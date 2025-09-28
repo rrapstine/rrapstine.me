@@ -24,34 +24,48 @@ const { work } = data;
 </section>
 
 <style lang='scss'>
-  // Set the maximum number of columns here
-  $maxColumns: 3;
-
   #work {
+    padding: var(--space-20) var(--space-4);
+
     h2 {
       text-align: center;
-      margin-bottom: 1em;
+      margin-bottom: var(--space-16);
+      background: var(--color-accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .container {
-      margin-bottom: 3em;
+      margin-bottom: var(--space-12);
 
       .work-list {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 4em;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--space-8);
+        max-width: 1000px;
+        margin: 0 auto;
       }
     }
 
     .caption {
       text-align: center;
-      color: var(--primary-gray);
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
 
-      i {
-        font-size: 1.5rem;
-        color: var(--primary-white);
+      a {
+        color: var(--color-accent-primary);
+        font-weight: var(--font-weight-medium);
+
+        i {
+          font-size: var(--font-size-lg);
+          margin-right: var(--space-2);
+          color: var(--color-text-primary);
+        }
+
+        &:hover {
+          color: var(--color-accent-secondary);
+        }
       }
     }
   }

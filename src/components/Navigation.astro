@@ -81,73 +81,146 @@ const { nav } = data;
     top: 0;
     right: 0;
     bottom: 0;
-    display: flex; // Centers the content
-    width: clamp(4em, 10vw, 6em);
+    width: clamp(4rem, 12vw, 6rem);
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-8);
   }
 
   .nav-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: var(--space-6);
     align-items: center;
-    gap: 1em;
   }
 
   .nav-item {
-    @media (min-width: 1080px) {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    a {
+      position: relative;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all var(--transition-normal);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      padding: var(--space-2) 0;
+    }
+
+    &.active a,
+    &:hover a,
+    &:focus a {
+      color: var(--color-accent-primary);
+      transform: rotate(180deg) scale(1.1);
+    }
+
+    /* Active indicator */
+    &.active::before,
+    &:hover::before {
+      content: '';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 24px;
+      background: var(--color-accent-gradient);
+      border-radius: var(--radius-sm);
+      opacity: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 24px;
+      background: var(--color-border);
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+
+    &:hover::before {
+      opacity: 0.5;
+    }
+  }
+
+  /* Desktop styles */
+  @media (min-width: 1080px) {
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: auto;
+      width: 100%;
+      height: auto;
+      padding: var(--space-6) 0;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-list {
+      flex-direction: row;
+      gap: var(--space-8);
+      justify-content: center;
+    }
+
+    .nav-item {
       &:first-of-type {
         display: none;
       }
 
-      visibility: visible;
-      margin-right: 4em;
+      a {
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        transform: none;
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-lg);
+        background: transparent;
+        backdrop-filter: none;
+        border: none;
+        font-size: var(--font-size-sm);
+      }
 
-      &:after {
+      &.active a,
+      &:hover a,
+      &:focus a {
+        background: var(--color-accent-primary);
+        color: var(--color-text-primary);
+        transform: none;
+        box-shadow: none;
+      }
+
+      &::before {
         display: none;
       }
+    }
+  }
 
-      &.active,
-      &:hover,
-      &:focus,
-      &:active {
-        a {
-          color: var(--primary-white);
-          font-size: 1.5em;
-        }
-      }
-
+  /* Mobile styles */
+  @media (max-width: 1079px) {
+    .nav-item {
       a {
-        text-decoration: none;
-        transition: all 0.2s ease;
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        transform: none;
+        padding: var(--space-1) var(--space-2);
+        font-size: var(--font-size-xs);
       }
-    }
-
-    visibility: hidden;
-    position: relative;
-    width: 100%;
-
-    &.active:after,
-    &:hover:after,
-    &:focus:after,
-    &:active:after {
-      background-color: var(--primary-white);
-      width: 1.25em;
-      height: 1.25em;
-    }
-
-    &:after {
-      content: '';
-      visibility: visible;
-      position: absolute;
-      top: 0;
-      right: 50%;
-      bottom: 0;
-      transform: translateX(50%) translateY(50%);
-      width: 1em;
-      height: 1em;
-      background-color: var(--primary-gray);
-      border-radius: 50%;
-      transition: all 0.25s ease;
     }
   }
 </style>

@@ -19,17 +19,19 @@ const { item } = Astro.props;
 ---
 
 <li class='project'>
-  <a href={item.url} target='_blank'><img src={item.image} alt='' /></a>
+  <a href={item.url} target='_blank'>
+    <img src={item.image} alt={`${item.title} project screenshot`} />
+  </a>
   <div class='project-info'>
-    <h3 class='fs-subheading'>{item.title}</h3>
-    <p class='text-dark'>{item.description}</p>
+    <h3>{item.title}</h3>
+    <p>{item.description}</p>
     <ul role='list' class='project-skills'>
-      {item.tech.map((tech) => <SkillIcon icon={tech.icon} colored={tech.colored} size='1' />)}
+      {item.tech.map((tech) => <SkillIcon icon={tech.icon} colored={tech.colored} size='1.2' />)}
     </ul>
     {
       item.github && (
-        <a href={item.github} target='_blank'>
-          <SkillIcon icon='github' colored='false' size='2' fontColor='white' />
+        <a href={item.github} target='_blank' class='github-link' aria-label='View on GitHub'>
+          <i class='devicon-github-plain' style='font-size: 1.5em; color: var(--color-text-primary);'></i>
         </a>
       )
     }
@@ -38,66 +40,100 @@ const { item } = Astro.props;
 
 <style lang='scss'>
   .project {
-    border-radius: 25px;
-    max-width: 350px;
-    background-color: var(--primary-black);
-    position: relative;
-    transition: transform 0.3s ease;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(10px);
 
-    &:after {
-      content: '';
-      pointer-events: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 25px;
-      box-shadow: 0 0 1rem -0.25em var(--primary-blue);
-      opacity: 0;
-      transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-accent-primary);
+      box-shadow: var(--shadow-xl);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-      transform: scale(1.05, 1.05);
+    a:first-child {
+      display: block;
+      position: relative;
+      overflow: hidden;
 
-      &:after {
+      img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform var(--transition-slow);
+      }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.1) 100%);
+        opacity: 0;
+        transition: opacity var(--transition-normal);
+      }
+
+      &:hover::after {
         opacity: 1;
       }
     }
 
-    img {
-      border-radius: 25px 25px 0 0;
-      width: 100%;
-    }
-
     .project-info {
-      position: relative;
-      padding: clamp(32px, 2em, 3em);
-      text-align: center;
+      padding: var(--space-6);
 
       h3 {
-        padding-bottom: 0.25em;
-        margin-bottom: 0.25em;
-        border-bottom: 1px solid var(--primary-gray);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--space-3);
+        color: var(--color-text-primary);
       }
 
       p {
-        margin-bottom: 2em;
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-sm);
+        line-height: 1.6;
+        margin-bottom: var(--space-4);
       }
 
       .project-skills {
         display: flex;
         justify-content: center;
-        gap: 0.5em;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
       }
 
-      a {
-        position: absolute;
-        top: 0.5em;
-        right: 0.5em;
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--color-bg-tertiary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        color: var(--color-text-primary);
+        transition: all var(--transition-fast);
+        box-shadow: var(--shadow-sm);
+
+        &:hover {
+          background: var(--color-accent-primary);
+          border-color: var(--color-accent-primary);
+          transform: scale(1.05);
+          box-shadow: var(--shadow-md);
+          color: var(--color-text-primary);
+        }
+
+        i {
+          color: inherit;
+        }
       }
     }
   }

@@ -30,31 +30,39 @@ const { skills } = data;
 
 <style lang='scss'>
   #skills {
+    padding: var(--space-20) var(--space-4);
+
     h2 {
       text-align: center;
-      margin-bottom: 1em;
-    }
-
-    h3 {
-      text-align: center;
-      margin-bottom: 1em;
+      margin-bottom: var(--space-16);
+      background: var(--color-accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .category-wrapper {
-      padding: 2em 0;
+      margin-bottom: var(--space-16);
 
       &:last-of-type {
-        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      h3 {
+        text-align: center;
+        margin-bottom: var(--space-8);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
       }
     }
 
     .skills-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 1em;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-4);
+      max-width: 800px;
+      margin: 0 auto;
     }
   }
 </style>
