@@ -90,7 +90,12 @@
 ### Development Practices
 
 - **Version Control**: Standard .gitignore for Node.js/Astro projects
-- **Git Workflow**: All features and changes must be performed on a new git branch (e.g., `feat/add-dark-mode`). Create branches with sensible names. No code should be committed before prompting for review and receiving explicit okay to commit. Use conventional commits (e.g., `feat: add resume download button`, `refactor: update UI to be more modern`). Avoid excessive adjustment commits by seeking review first.
+- **Git Workflow**: All features and changes must be performed on a new git branch (e.g., `feat/add-dark-mode`). Create branches with sensible names.
+  - **IMPORTANT: DO NOT MAKE COMMITS OR MERGE ANYTHING UNLESS EXPLICITLY APPROVED BY THE USER!**
+  - You MUST ask for review prior to EACH commit and merge!!!
+  - No code should be committed before prompting for review and receiving explicit okay to commit.
+  - Use conventional commits (e.g., `feat: add resume download button`, `refactor: update UI to be more modern`).
+  - Avoid excessive adjustment commits by seeking review first.
 - **Formatting**: Prettier with semicolons enabled
 - **No Comments**: Code is self-documenting without inline comments
 - **Performance**: Static site generation, minimal JavaScript, efficient bundling
