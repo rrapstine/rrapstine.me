@@ -2,396 +2,234 @@
 import data from '../data/site.json';
 
 const { nav } = data;
+const navItems = nav.filter(item => item.name !== 'Landing');
 ---
 
 <nav class='nav-container'>
-  <!-- Hamburger Menu Button (Mobile Only) -->
-  <button
-    class='hamburger-btn'
-    aria-label='Toggle navigation menu'
-    aria-expanded='false'>
-    <span class='hamburger-line'></span>
-    <span class='hamburger-line'></span>
-    <span class='hamburger-line'></span>
-  </button>
+  <div class='nav-brand'>
+    <a href='#landing' class='brand-link'>richard</a>
+  </div>
 
-  <!-- Desktop Navigation -->
-  <ul class='nav-list desktop-nav' role='list'>
-    <>
-      {
-        nav.map((link) => (
-          <li
-            class={`nav-item ${link.name === 'Landing' ? 'active' : ''}`}
-            data-link={link.name.toLowerCase()}>
-            <a href={link.link} class='text-dark fs-nav fw-medium'>
-              {link.name}
-            </a>
-          </li>
-        ))
-      }
-    </>
+  <ul class='nav-list' role='list'>
+    {navItems.map((link) => (
+      <li class='nav-item' data-link={link.name.toLowerCase()}>
+        <a href={link.link}>{link.name}</a>
+      </li>
+    ))}
   </ul>
 
-  <!-- Mobile Navigation Overlay -->
-  <div class='mobile-menu-overlay'>
-    <ul class='nav-list mobile-nav' role='list'>
-      <>
-        {
-          nav.map((link) => (
-            <li
-              class={`nav-item ${link.name === 'Landing' ? 'active' : ''}`}
-              data-link={link.name.toLowerCase()}>
-              <a href={link.link} class='text-dark fs-nav fw-medium'>
-                {link.name}
-              </a>
-            </li>
-          ))
-        }
-      </>
-    </ul>
-  </div>
+  <button class='mobile-toggle' aria-label='Toggle navigation menu'>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <script>
-  // Use IntersectionObserver to determine which link is active based on scroll position
-  (() => {
-    const sections = document.querySelectorAll('section') as NodeListOf<HTMLElement>;
-    const navItems = [...document.querySelectorAll('.nav-item')] as HTMLElement[];
+  // Mobile menu toggle
+  function initMobileMenu() {
+    const mobileToggle = document.querySelector('.mobile-toggle') as HTMLButtonElement;
+    const navList = document.querySelector('.nav-list') as HTMLElement;
+    
+    if (!mobileToggle || !navList) return;
 
-    const options = {
-      threshold: 0,
-      rootMargin: '-25%',
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        const id = entry.target.getAttribute('id');
-
-        navItems.forEach((item) => {
-          item.classList.remove('active');
-
-          if (item.dataset.link === id) {
-            item.classList.add('active');
-          }
-        });
-      });
-    }, options);
-
-    sections.forEach((section) => {
-      observer.observe(section);
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('active');
+      navList.classList.toggle('open');
     });
-  })();
 
-  // Smooth scroll to clicked link's associated section
-  (() => {
+    // Close menu when clicking on nav links
+    const navLinks = document.querySelectorAll('.nav-item a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        navList.classList.remove('open');
+      });
+    });
+  }
+
+  // Smooth scroll and active state
+  function initNavigation() {
+    const sections = document.querySelectorAll('section') as NodeListOf<HTMLElement>;
+    const navItems = document.querySelectorAll('.nav-item') as NodeListOf<HTMLElement>;
     const navLinks = document.querySelectorAll('.nav-item a') as NodeListOf<HTMLAnchorElement>;
 
-    navLinks.forEach((link: HTMLAnchorElement) => {
+    // Smooth scroll
+    navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-
-        // @ts-ignore
-        const target = document.querySelector(link.getAttribute('href'));
-
+        const target = document.querySelector(link.getAttribute('href') || '');
         if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-          });
+          target.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
-  })();
 
-  // Hamburger Menu Toggle
-  (() => {
-    const hamburgerBtn = document.querySelector('.hamburger-btn') as HTMLButtonElement;
-    const mobileMenu = document.querySelector('.mobile-menu-overlay') as HTMLElement;
-    const body = document.body;
+    // Active state on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.link === id) {
+              item.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
 
-    if (!hamburgerBtn || !mobileMenu) return;
+    sections.forEach(section => observer.observe(section));
+  }
 
-    hamburgerBtn.addEventListener('click', toggleMenu);
-
-    function toggleMenu() {
-      const isOpen = mobileMenu.classList.contains('open');
-
-      hamburgerBtn.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      body.classList.toggle('menu-open');
-      hamburgerBtn.setAttribute('aria-expanded', (!isOpen).toString());
-    };
-
-
-    // Close menu when clicking on overlay or links
-    mobileMenu.addEventListener('click', (e) => {
-      if (e.target === mobileMenu || e.target.closest('.nav-item a')) {
-        toggleMenu();
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-        toggleMenu();
-      }
-    });
-  })();
+  // Initialize on DOM load
+  document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+    initNavigation();
+  });
 </script>
 
 <style lang='scss'>
   .nav-container {
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
-    bottom: 0;
-    width: clamp(4rem, 12vw, 6rem);
-    z-index: 100;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: var(--space-8);
-  }
-
-  /* Hamburger Button */
-  .hamburger-btn {
-    display: none;
-    position: fixed;
-    top: var(--space-6);
-    right: var(--space-6);
-    z-index: 101;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-3);
-    cursor: pointer;
-    transition: all 100ms ease-in-out;
+    z-index: 1000;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
     backdrop-filter: blur(10px);
-
-    .hamburger-line {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--color-text-primary);
-      margin: 3px 0;
-      transition: all var(--transition-fast);
-      border-radius: 1px;
-    }
-
-    &.open .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(25%, 100%);
-      translate: -10%;
-    }
-
-    &.open .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-
-    &.open .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(25%, -100%);
-      translate: -10%;
-    }
-
-    &:hover {
-      border-color: var(--color-accent-primary);
-      background: var(--color-accent-primary);
-      transform: scale(1.05);
-
-      .hamburger-line {
-        background: var(--color-text-primary);
-      }
-    }
+    padding: var(--space-4) 0;
   }
 
-  /* Mobile Menu Overlay */
-  .mobile-menu-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 280px;
-    height: 100vh;
-    background: var(--color-bg-secondary);
-    backdrop-filter: blur(20px);
-    border-left: 1px solid var(--color-border);
-    z-index: 99;
-    transform: translateX(100%);
-    transition: transform 200ms ease-in-out;
-    padding-top: var(--space-20);
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
 
-    &.open {
-      transform: translateX(0);
-    }
-
-    .nav-list {
-      flex-direction: column;
-      gap: var(--space-6);
-      padding: 0 var(--space-6);
-    }
-
-    .nav-item a {
-      display: block;
-      padding: var(--space-4);
-      border-radius: var(--radius-lg);
-      transition: all var(--transition-fast);
-      text-align: center;
-      font-size: var(--font-size-base);
-      writing-mode: horizontal-tb;
-      text-orientation: mixed;
-      transform: none;
+  .nav-brand {
+    .brand-link {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
 
       &:hover {
-        background: var(--color-bg-tertiary);
         color: var(--color-accent-primary);
-        transform: translateX(-4px);
+      }
+
+      &::after {
+        display: none;
       }
     }
-  }
-
-  /* Body styles when menu is open */
-  body.menu-open {
-    overflow: hidden;
   }
 
   .nav-list {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    align-items: center;
-  }
-
-  .nav-item {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    a {
-      position: relative;
-      color: var(--color-text-muted);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-medium);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      transition: all var(--transition-normal);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      padding: var(--space-2) 0;
-    }
-
-    &.active a,
-    &:hover a,
-    &:focus a {
-      color: var(--color-accent-primary);
-      transform: rotate(180deg) scale(1.1);
-    }
-
-    /* Active indicator */
-    &.active::before,
-    &:hover::before {
-      content: '';
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 24px;
-      background: var(--color-accent-gradient);
-      border-radius: var(--radius-sm);
-      opacity: 1;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 24px;
-      background: var(--color-border);
-      border-radius: var(--radius-sm);
-      opacity: 0;
-      transition: opacity var(--transition-normal);
-    }
-
-    &:hover::before {
-      opacity: 0.5;
-    }
-  }
-
-  /* Desktop styles */
-  @media (min-width: 1080px) {
-    .nav-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: auto;
-      width: 100%;
-      height: auto;
-      padding: var(--space-6) 0;
-      background: rgba(10, 10, 15, 0.3);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .nav-list {
-      flex-direction: row;
-      gap: var(--space-8);
-      justify-content: center;
-    }
+    gap: var(--space-8);
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     .nav-item {
-      &:first-of-type {
-        display: none;
-      }
-
       a {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed;
-        transform: none;
-        padding: var(--space-2) var(--space-4);
-        border-radius: var(--radius-lg);
-        background: transparent;
-        backdrop-filter: none;
-        border: none;
+        color: var(--color-text-secondary);
+        text-decoration: none;
         font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
+        transition: all var(--transition-fast);
+        position: relative;
+
+        &:hover {
+          color: var(--color-text-primary);
+          background: var(--color-bg-card);
+        }
+
+        &::after {
+          display: none;
+        }
       }
 
-      &.active a,
-      &:hover a,
-      &:focus a {
-        background: var(--color-accent-primary);
+      &.active a {
         color: var(--color-text-primary);
-        transform: none;
-        box-shadow: none;
-      }
-
-      &::before {
-        display: none;
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border);
       }
     }
   }
 
-  /* Mobile styles */
-  @media (max-width: 1079px) {
-    .nav-container {
-      width: 0; /* Hide the vertical sidebar on mobile */
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+
+    span {
+      width: 20px;
+      height: 2px;
+      background: var(--color-text-primary);
+      transition: all var(--transition-fast);
+      border-radius: 1px;
     }
 
-    .hamburger-btn {
-      display: block;
+    &.active {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-list {
+      position: fixed;
+      top: 70px;
+      right: 0;
+      width: 250px;
+      height: calc(100vh - 70px);
+      background: var(--color-bg-secondary);
+      border-left: 1px solid var(--color-border);
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-6);
+      transform: translateX(100%);
+      transition: transform var(--transition-normal);
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      .nav-item a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: var(--space-4);
+        font-size: var(--font-size-base);
+      }
     }
 
-    .mobile-menu-overlay {
-      display: block;
-    }
-
-    .desktop-nav {
-      display: none;
+    .mobile-toggle {
+      display: flex;
     }
   }
 </style>

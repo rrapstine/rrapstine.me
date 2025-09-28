@@ -8,8 +8,7 @@
   "resume": "/assets/docs/resume.pdf",
   "nav": [
     { "link": "#landing", "name": "Landing" },
-    { "link": "#skills", "name": "Skills" },
-    { "link": "#work", "name": "Work" },
+    { "link": "#projects", "name": "Projects" },
     { "link": "#contact", "name": "Contact" }
   ],
   "skills": {
@@ -34,7 +33,7 @@
       { "name": "Bash", "icon": "bash", "colored": false }
     ]
   },
-  "work": [
+  "projects": [
     {
       "title": "Community EMS",
       "description": "Homepage for Community EMS in Hondo, TX",

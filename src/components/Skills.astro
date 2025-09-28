@@ -6,24 +6,34 @@ const { skills } = data;
 ---
 
 <section id='skills'>
-  <h2 class='ff-heading fs-heading fw-bold text-accent'>My Skillset</h2>
-
   <div class='container'>
-    <div id='comfortable' class='category-wrapper'>
-      <h3 class='fs-subheading fw-medium'>Tech I'm comfortable with</h3>
-      <ul role='list' class='skills-container'>
-        <>
-          {skills.comfortable.map((skill) => <SkillItem skill={skill} />)}
-        </>
-      </ul>
+    <div class='section-header'>
+      <h2>skills</h2>
+      <div class='section-description'>
+        <p>technologies i work with daily and others i'm actively learning</p>
+      </div>
     </div>
-    <div id='mastering' class='category-wrapper'>
-      <h3 class='fs-subheading fw-medium'>Tech I'm currently mastering</h3>
-      <ul role='list' class='skills-container'>
-        <>
+
+    <div class='skills-content'>
+      <div class='skill-category'>
+        <div class='category-header'>
+          <h3>comfortable</h3>
+          <span class='category-count'>{skills.comfortable.length}</span>
+        </div>
+        <ul role='list' class='skills-grid'>
+          {skills.comfortable.map((skill) => <SkillItem skill={skill} />)}
+        </ul>
+      </div>
+
+      <div class='skill-category'>
+        <div class='category-header'>
+          <h3>learning</h3>
+          <span class='category-count'>{skills.mastering.length}</span>
+        </div>
+        <ul role='list' class='skills-grid'>
           {skills.mastering.map((skill) => <SkillItem skill={skill} />)}
-        </>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -31,38 +41,80 @@ const { skills } = data;
 <style lang='scss'>
   #skills {
     padding: var(--space-20) var(--space-4);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-16);
 
     h2 {
-      text-align: center;
-      margin-bottom: var(--space-16);
-      background: var(--color-accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
     }
 
-    .category-wrapper {
-      margin-bottom: var(--space-16);
-
-      &:last-of-type {
-        margin-bottom: 0;
+    .section-description {
+      p {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        max-width: 600px;
       }
+    }
+  }
+
+  .skills-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .skill-category {
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
 
       h3 {
-        text-align: center;
-        margin-bottom: var(--space-8);
-        color: var(--color-text-secondary);
-        font-size: var(--font-size-lg);
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: var(--font-size-xl);
         font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .category-count {
+        background: var(--color-bg-card);
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
       }
     }
 
-    .skills-container {
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: var(--space-4);
-      max-width: 800px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-3);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .skills-content {
+      flex-direction: row;
+      gap: var(--space-20);
+    }
+
+    .skill-category {
+      flex: 1;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
   }
 </style>

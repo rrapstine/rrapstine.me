@@ -1,132 +1,231 @@
 ---
 import data from '../data/site.json';
-import SkillIcon from './SkillIcon.astro';
 
 const { socials, resume } = data;
 ---
 
 <section id='contact'>
-  <h2>Let's Get In Touch</h2>
-
   <div class='container'>
-    <div class='contact'>
-      <h3>Check out my resume</h3>
-      <a href={resume} target='_blank' class='resume-btn' aria-label='Download resume'>
-        Download Resume
-      </a>
+    <div class='section-header'>
+      <h2>contact</h2>
+      <div class='section-description'>
+        <p>let's connect and build something amazing together</p>
+      </div>
     </div>
-    <div class='contact'>
-      <h3>Find me on social media</h3>
-      <ul role='list' class='socials-list'>
-        {
-          socials.map((social) => (
-            <li>
-              <a href={social.link} target='_blank' aria-label={`Visit ${social.title}`}>
-                <SkillIcon
-                  icon={social.icon}
-                  size='1.5'
-                />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+
+    <div class='contact-content'>
+      <div class='contact-main'>
+        <div class='contact-text'>
+          <p>currently open to new opportunities and interesting projects</p>
+        </div>
+        
+        <div class='contact-actions'>
+          <a href='mailto:richard@rrapstine.me' class='contact-btn primary'>
+            <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+              <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/>
+              <polyline points='22,6 12,13 2,6'/>
+            </svg>
+            <span>get in touch</span>
+          </a>
+          
+          <a href={resume} target='_blank' class='contact-btn secondary'>
+            <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+              <path d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12'/>
+            </svg>
+            <span>download resume</span>
+          </a>
+        </div>
+      </div>
+
+      <div class='social-links'>
+        <div class='social-header'>
+          <span>find me on</span>
+        </div>
+        <div class='social-list'>
+          {socials.map((social) => (
+            <a href={social.link} target='_blank' class='social-link' title={social.title}>
+              <span class='social-name'>{social.title.toLowerCase()}</span>
+              <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+                <path d='M7 17L17 7M17 7H7M17 7V17'/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
 <style lang='scss'>
   #contact {
     padding: var(--space-20) var(--space-4);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-16);
 
     h2 {
-      text-align: center;
-      margin-bottom: var(--space-16);
-      background: var(--color-accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-12);
-      max-width: 800px;
-      margin: 0 auto;
+    .section-description {
+      p {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        max-width: 600px;
+      }
+    }
+  }
 
-      .contact {
-        background: var(--color-bg-card);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-2xl);
-        padding: var(--space-8);
-        backdrop-filter: blur(10px);
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
 
-        h3 {
-          margin-bottom: var(--space-6);
-          color: var(--color-text-primary);
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-semibold);
-          text-align: center;
-        }
+  .contact-main {
+    .contact-text {
+      margin-bottom: var(--space-8);
 
-        .resume-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--space-2);
-          padding: var(--space-4) var(--space-8);
-          background: var(--color-accent-gradient);
-          color: var(--color-text-primary);
-          border: none;
-          border-radius: var(--radius-lg);
-          font-size: var(--font-size-base);
-          font-weight: var(--font-weight-medium);
-          cursor: pointer;
-          transition: all var(--transition-fast);
-          text-decoration: none;
-          margin: 0 auto;
-          width: fit-content;
+      p {
+        font-size: var(--font-size-xl);
+        color: var(--color-text-secondary);
+        margin: 0;
+      }
+    }
 
-          &:hover {
-            text-decoration: none;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
-          }
-        }
+    .contact-actions {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
 
-        .socials-list {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: var(--space-4);
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: all var(--transition-fast);
+      border: 1px solid var(--color-border);
 
-          li {
-            transition: all var(--transition-fast);
+      &.primary {
+        background: var(--color-accent-primary);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-primary);
 
-            a {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              width: 56px;
-              height: 56px;
-              background: var(--color-bg-tertiary);
-              border: 1px solid var(--color-border);
-              border-radius: var(--radius-xl);
-              color: var(--color-text-primary);
-              transition: all var(--transition-fast);
-
-              &:hover {
-                background: var(--color-accent-primary);
-                border-color: var(--color-accent-primary);
-                text-decoration: none;
-                color: var(--color-text-primary);
-                transform: translateY(-2px) scale(1.05);
-                box-shadow: var(--shadow-lg);
-              }
-            }
-          }
+        &:hover {
+          background: var(--color-accent-secondary);
+          border-color: var(--color-accent-secondary);
+          transform: translateY(-2px);
         }
       }
+
+      &.secondary {
+        background: var(--color-bg-card);
+        color: var(--color-text-secondary);
+
+        &:hover {
+          background: var(--color-bg-tertiary);
+          color: var(--color-text-primary);
+          border-color: var(--color-accent-primary);
+        }
+      }
+
+      &::after {
+        display: none;
+      }
+
+      svg {
+        transition: transform var(--transition-fast);
+      }
+
+      &:hover svg {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .social-links {
+    .social-header {
+      margin-bottom: var(--space-4);
+
+      span {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: var(--font-size-sm);
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+
+    .social-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+
+      &:hover {
+        background: var(--color-bg-card);
+        color: var(--color-text-primary);
+        border-color: var(--color-border);
+
+        svg {
+          transform: translate(2px, -2px);
+        }
+      }
+
+      &::after {
+        display: none;
+      }
+
+      .social-name {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+      }
+
+      svg {
+        transition: transform var(--transition-fast);
+        opacity: 0.5;
+      }
+
+      &:hover svg {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .contact-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .contact-main {
+      flex: 2;
+      max-width: 500px;
+    }
+
+    .social-links {
+      flex: 1;
+      max-width: 300px;
     }
   }
 </style>

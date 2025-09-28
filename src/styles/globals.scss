@@ -1,22 +1,31 @@
 :root {
   font-size: 16px;
 
-  /* Modern Dark Color Palette */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #111118;
-  --color-bg-tertiary: #1a1a24;
-  --color-bg-card: rgba(255, 255, 255, 0.02);
+  /* Catppuccin Mocha Color Palette */
+  --color-bg-primary: #1e1e2e;
+  --color-bg-secondary: #181825;
+  --color-bg-tertiary: #313244;
+  --color-bg-card: #45475a;
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  --color-text-primary: #cdd6f4;
+  --color-text-secondary: #bac2de;
+  --color-text-muted: #9399b2;
 
-  --color-accent-primary: #6366f1;
-  --color-accent-secondary: #8b5cf6;
-  --color-accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --color-accent-primary: #89b4fa;
+  --color-accent-secondary: #b4befe;
+  --color-accent-gradient: linear-gradient(135deg, #89b4fa 0%, #b4befe 100%);
 
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
+  --color-border: #585b70;
+  --color-border-hover: #6c7086;
+
+  /* Additional Catppuccin Colors */
+  --color-red: #f38ba8;
+  --color-green: #a6e3a1;
+  --color-yellow: #f9e2af;
+  --color-pink: #f5c2e7;
+  --color-mauve: #cba6f7;
+  --color-maroon: #eba0ac;
+  --color-peach: #fab387;
 
   /* Typography */
   --font-family-primary:
