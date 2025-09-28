@@ -73,6 +73,31 @@ const { nav } = data;
       });
     });
   })();
+
+  // Make navigation more transparent when over landing section
+  (() => {
+    const navContainer = document.querySelector('.nav-container') as HTMLElement;
+    const landingSection = document.querySelector('#landing') as HTMLElement;
+
+    if (!navContainer || !landingSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Landing section is visible, make nav more transparent
+          navContainer.style.background = 'rgba(10, 10, 15, 0.1)';
+        } else {
+          // Landing section not visible, make nav less transparent
+          navContainer.style.background = 'rgba(10, 10, 15, 0.3)';
+        }
+      });
+    }, {
+      threshold: 0.1, // Trigger when 10% of landing section is visible
+      rootMargin: '-80px 0px 0px 0px' // Account for nav height
+    });
+
+    observer.observe(landingSection);
+  })();
 </script>
 
 <style lang='scss'>
@@ -168,7 +193,7 @@ const { nav } = data;
       width: 100%;
       height: auto;
       padding: var(--space-6) 0;
-      background: rgba(10, 10, 15, 0.8);
+      background: rgba(10, 10, 15, 0.3);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--color-border);
     }

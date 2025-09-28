@@ -2,19 +2,30 @@
 ---
 
 <section id='landing'>
-  <div class='floating-shapes'>
-    <div class='shape shape-1'></div>
-    <div class='shape shape-2'></div>
-    <div class='shape shape-3'></div>
+  <div class='stars'>
+    <div class='star star-1'></div>
+    <div class='star star-2'></div>
+    <div class='star star-3'></div>
+    <div class='star star-4'></div>
+    <div class='star star-5'></div>
+    <div class='star star-6'></div>
+    <div class='star star-7'></div>
+    <div class='star star-8'></div>
+    <div class='star star-9'></div>
+    <div class='star star-10'></div>
+    <div class='star star-11'></div>
+    <div class='star star-12'></div>
   </div>
 
   <div class='container'>
     <h1>Richard Rapstine</h1>
-    <p>
-      <span>Father. Adventurer.</span> Developer.
-    </p>
+      <p>
+        Father. Adventurer. <span>Developer.</span>
+      </p>
   </div>
 </section>
+
+
 
 <style lang='scss'>
   #landing {
@@ -89,64 +100,93 @@
       }
     }
 
-    /* Floating elements for visual interest */
-    .floating-shapes {
+    /* Shimmering stars above mountaintops */
+    .stars {
       position: absolute;
-      top: 0;
+      top: 15vh; /* Start lower, above mountaintops */
       left: 0;
       right: 0;
-      bottom: 0;
+      height: 25vh; /* Extended area for more stars */
       pointer-events: none;
       z-index: 0;
+      overflow: hidden;
     }
 
-    .shape {
+    .star {
       position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #ffffff;
       border-radius: 50%;
-      background: var(--color-accent-gradient);
-      opacity: 0.1;
-      animation: float 20s ease-in-out infinite;
+      animation: shimmer 3s ease-in-out infinite;
     }
 
-    .shape-1 {
-      width: 200px;
-      height: 200px;
-      top: 10%;
-      left: 10%;
-      animation-delay: 0s;
+    .star::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: twinkle 2s ease-in-out infinite;
     }
 
-    .shape-2 {
-      width: 150px;
-      height: 150px;
-      top: 60%;
-      right: 15%;
-      animation-delay: 5s;
-    }
+    /* Position stars above mountaintops */
+    .star-1 { top: 15%; left: 20%; animation-delay: 0s; }
+    .star-2 { top: 25%; left: 45%; animation-delay: 0.5s; }
+    .star-3 { top: 10%; left: 70%; animation-delay: 1s; }
+    .star-4 { top: 35%; left: 15%; animation-delay: 1.5s; }
+    .star-5 { top: 20%; left: 85%; animation-delay: 2s; }
+    .star-6 { top: 5%; left: 35%; animation-delay: 2.5s; }
+    .star-7 { top: 30%; left: 60%; animation-delay: 0.8s; }
+    .star-8 { top: 18%; left: 90%; animation-delay: 1.2s; }
+    .star-9 { top: 60%; left: 25%; animation-delay: 1.8s; }
+    .star-10 { top: 55%; left: 75%; animation-delay: 2.3s; }
+    .star-11 { top: 65%; left: 40%; animation-delay: 0.3s; }
+    .star-12 { top: 58%; left: 55%; animation-delay: 1.7s; }
 
-    .shape-3 {
-      width: 100px;
-      height: 100px;
-      bottom: 20%;
-      left: 20%;
-      animation-delay: 10s;
-    }
+    /* Different sizes for variety */
+    .star-1, .star-3, .star-6, .star-9 { width: 3px; height: 3px; }
+    .star-2, .star-5, .star-8, .star-11 { width: 1.5px; height: 1.5px; }
+    .star-4, .star-7, .star-10, .star-12 { width: 2.5px; height: 2.5px; }
 
-    @keyframes float {
+    @keyframes shimmer {
       0%, 100% {
-        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+        transform: scale(1);
       }
-      33% {
-        transform: translateY(-20px) rotate(120deg);
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
       }
-      66% {
-        transform: translateY(10px) rotate(240deg);
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(1.5);
       }
     }
 
     @media (max-width: 768px) {
-      .shape {
-        display: none;
+      .stars {
+        height: 25vh; /* Reduce height on mobile */
+      }
+
+      .star {
+        width: 1.5px;
+        height: 1.5px;
+      }
+
+      .star-1, .star-3, .star-6 {
+        width: 2px;
+        height: 2px;
       }
     }
   }

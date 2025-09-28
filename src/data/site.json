@@ -24,7 +24,6 @@
       { "name": "Laravel", "icon": "laravel", "colored": true },
       { "name": "Git", "icon": "git", "colored": true },
       { "name": "MySQL", "icon": "mysql", "colored": true }
-      
     ],
     "mastering": [
       { "name": "Svelte", "icon": "svelte", "colored": true },
