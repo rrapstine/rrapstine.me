@@ -67,6 +67,7 @@
 - **Modern APIs**: IntersectionObserver for scroll-based interactions
 - **Event Handling**: Add event listeners programmatically rather than inline
 - **TypeScript Overrides**: Minimal use of `@ts-ignore` (only when necessary)
+- **Function Declarations**: Prefer function declarations over function expressions where possible
 
 ### File Organization
 

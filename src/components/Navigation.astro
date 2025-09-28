@@ -112,15 +112,17 @@ const { nav } = data;
 
     if (!hamburgerBtn || !mobileMenu) return;
 
-    const toggleMenu = () => {
+    hamburgerBtn.addEventListener('click', toggleMenu);
+
+    function toggleMenu() {
       const isOpen = mobileMenu.classList.contains('open');
-      hamburgerBtn.setAttribute('aria-expanded', (!isOpen).toString());
+
       hamburgerBtn.classList.toggle('open');
       mobileMenu.classList.toggle('open');
       body.classList.toggle('menu-open');
+      hamburgerBtn.setAttribute('aria-expanded', (!isOpen).toString());
     };
 
-    hamburgerBtn.addEventListener('click', toggleMenu);
 
     // Close menu when clicking on overlay or links
     mobileMenu.addEventListener('click', (e) => {
@@ -135,31 +137,6 @@ const { nav } = data;
         toggleMenu();
       }
     });
-  })();
-
-  // Make navigation more transparent when over landing section
-  (() => {
-    const navContainer = document.querySelector('.nav-container') as HTMLElement;
-    const landingSection = document.querySelector('#landing') as HTMLElement;
-
-    if (!navContainer || !landingSection) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Landing section is visible, make nav more transparent
-          navContainer.style.background = 'rgba(10, 10, 15, 0.1)';
-        } else {
-          // Landing section not visible, make nav less transparent
-          navContainer.style.background = 'rgba(10, 10, 15, 0.3)';
-        }
-      });
-    }, {
-      threshold: 0.1, // Trigger when 10% of landing section is visible
-      rootMargin: '-80px 0px 0px 0px' // Account for nav height
-    });
-
-    observer.observe(landingSection);
   })();
 </script>
 
@@ -203,7 +180,8 @@ const { nav } = data;
     }
 
     &.open .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+      transform: rotate(45deg) translate(25%, 100%);
+      translate: -10%;
     }
 
     &.open .hamburger-line:nth-child(2) {
@@ -211,7 +189,8 @@ const { nav } = data;
     }
 
     &.open .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg) translate(25%, -100%);
+      translate: -10%;
     }
 
     &:hover {
