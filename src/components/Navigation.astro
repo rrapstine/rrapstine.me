@@ -83,9 +83,11 @@ const navItems = nav.filter(item => item.name !== 'Landing');
     sections.forEach(section => observer.observe(section));
   }
 
-  // Initialize on DOM load
+  // Initialize immediately for mobile menu toggle
+  initMobileMenu();
+  
+  // Initialize navigation features on DOM load (less time-critical)
   document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
     initNavigation();
   });
 </script>
@@ -189,7 +191,7 @@ const navItems = nav.filter(item => item.name !== 'Landing');
 
     &.active {
       span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: translateY(6px) rotate(45deg);
       }
       
       span:nth-child(2) {
@@ -197,7 +199,7 @@ const navItems = nav.filter(item => item.name !== 'Landing');
       }
       
       span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
+        transform: translateY(-6px) rotate(-45deg);
       }
     }
   }
@@ -215,7 +217,7 @@ const navItems = nav.filter(item => item.name !== 'Landing');
       gap: var(--space-2);
       padding: var(--space-6);
       transform: translateX(100%);
-      transition: transform var(--transition-normal);
+      transition: transform var(--transition-fast);
 
       &.open {
         transform: translateX(0);
