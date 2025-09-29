@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  layout?: 'constrained' | 'full-width' | 'fixed';
+  fit?: 'cover' | 'contain' | 'fill' | 'none';
+  position?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className,
+  sizes = '100vw',
+  loading = 'lazy',
+  decoding = 'async',
+  layout = 'constrained',
+  fit = 'cover',
+  position = 'center',
+  ...rest
+} = Astro.props;
+
+// Determine if the src is a string (URL path) or an ImageMetadata object
+const isRemoteImage = typeof src === 'string';
+---
+
+{isRemoteImage ? (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    sizes={sizes}
+    loading={loading}
+    decoding={decoding}
+    layout={layout}
+    fit={fit}
+    position={position}
+    {...rest}
+  />
+) : (
+  <Image
+    src={src}
+    alt={alt}
+    width={width || src.width}
+    height={height || src.height}
+    class={className}
+    sizes={sizes}
+    loading={loading}
+    decoding={decoding}
+    layout={layout}
+    fit={fit}
+    position={position}
+    {...rest}
+  />
+)}

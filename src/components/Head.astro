@@ -4,6 +4,21 @@ import '../styles/globals.scss';
 import '../styles/reset.css';
 
 const { title, description } = data;
+
+// Define critical assets for preloading
+const criticalFonts = [
+  {
+    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap',
+    type: 'font'
+  },
+  {
+    href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap',
+    type: 'font'
+  }
+];
+
+// Get landing image for preloading
+const landingImage = '/assets/images/landing-image.webp';
 ---
 
 <head>
@@ -20,8 +35,31 @@ const { title, description } = data;
     rel='stylesheet'
     href='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css'
   />
+  <!-- Resource preconnect hints -->
   <link rel='preconnect' href='https://fonts.googleapis.com' />
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+  <link rel='preconnect' href='https://cdn.jsdelivr.net' crossorigin />
+  
+  <!-- Critical CSS and font preloading -->
+  {criticalFonts.map((font) => (
+    <link 
+      rel="preload" 
+      href={font.href} 
+      as={font.type} 
+      crossorigin 
+      fetchpriority="high"
+    />
+  ))}
+  
+  <!-- Preload hero image -->
+  <link 
+    rel="preload" 
+    href={landingImage} 
+    as="image" 
+    fetchpriority="high" 
+  />
+  
+  <!-- Font stylesheets -->
   <link
     href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap'
     rel='stylesheet'

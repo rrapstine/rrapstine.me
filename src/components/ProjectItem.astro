@@ -1,5 +1,6 @@
 ---
 import SkillIcon from './SkillIcon.astro';
+import OptimizedImage from './OptimizedImage.astro';
 
 interface Props {
   item: {
@@ -11,6 +12,7 @@ interface Props {
     tech: {
       icon: string;
       colored: boolean;
+      name: string;
     }[];
   };
 }
@@ -21,7 +23,14 @@ const { item } = Astro.props;
 <div class='project-card'>
   <div class='project-image'>
     <a href={item.url} target='_blank' class='mobile-project-link'>
-      <img src={item.image} alt={`${item.title} project screenshot`} />
+      <OptimizedImage 
+        src={item.image} 
+        alt={`${item.title} project screenshot`}
+        layout="constrained"
+        width={800}
+        height={450}
+        fit="cover"
+      />
     </a>
     <div class='project-overlay'>
       <div class='project-links'>
