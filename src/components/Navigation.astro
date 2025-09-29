@@ -151,8 +151,8 @@ const navItems = nav.filter(item => item.name !== 'Landing');
         position: relative;
 
         &:hover {
-          color: var(--color-text-primary);
-          background: var(--color-bg-card);
+          color: var(--color-accent-primary);
+          background: rgba(83, 22, 156, 0.05); /* Lighter darker mauve with transparency */
         }
 
         &::after {
@@ -162,8 +162,8 @@ const navItems = nav.filter(item => item.name !== 'Landing');
 
       &.active a {
         color: var(--color-text-primary);
-        background: var(--color-bg-card);
-        border: 1px solid var(--color-border);
+        background: rgba(83, 22, 156, 0.1); /* Darker Mauve with transparency */
+        border: 1px solid var(--color-accent-primary);
       }
     }
   }

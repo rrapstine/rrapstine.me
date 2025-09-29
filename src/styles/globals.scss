@@ -11,9 +11,9 @@
   --color-text-secondary: #bac2de;
   --color-text-muted: #9399b2;
 
-  --color-accent-primary: #89b4fa;
-  --color-accent-secondary: #b4befe;
-  --color-accent-gradient: linear-gradient(135deg, #89b4fa 0%, #b4befe 100%);
+  --color-accent-primary: #53169c; /* Darker Mauve for better contrast */
+  --color-accent-secondary: #48169c; /* Darker Mauve alternative for hover states */
+  --color-accent-gradient: linear-gradient(135deg, #53169c 0%, #48169c 100%);
 
   --color-border: #585b70;
   --color-border-hover: #6c7086;
@@ -23,7 +23,7 @@
   --color-green: #a6e3a1;
   --color-yellow: #f9e2af;
   --color-pink: #f5c2e7;
-  --color-mauve: #cba6f7;
+  --color-mauve: #53169c;
   --color-maroon: #eba0ac;
   --color-peach: #fab387;
 

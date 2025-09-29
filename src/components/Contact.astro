@@ -131,9 +131,10 @@ const { socials, resume } = data;
         color: var(--color-text-secondary);
 
         &:hover {
-          background: var(--color-bg-tertiary);
+          background: rgba(83, 22, 156, 0.1); /* Darker Mauve with transparency */
           color: var(--color-text-primary);
           border-color: var(--color-accent-primary);
+          transform: translateY(-1px);
         }
       }
 
@@ -182,9 +183,9 @@ const { socials, resume } = data;
       border: 1px solid transparent;
 
       &:hover {
-        background: var(--color-bg-card);
+        background: rgba(83, 22, 156, 0.1); /* Darker Mauve with transparency */
         color: var(--color-text-primary);
-        border-color: var(--color-border);
+        border-color: var(--color-accent-primary);
 
         svg {
           transform: translate(2px, -2px);
