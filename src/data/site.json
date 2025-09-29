@@ -6,7 +6,11 @@
   "tagline": "Father. Adventurer. Developer.",
   "profile_pic": "/assets/images/me.png",
   "resume": "/assets/docs/resume.pdf",
-  "nav": [{ "link": "#landing", "name": "Landing" }, { "link": "#projects", "name": "Projects" }, { "link": "#contact", "name": "Contact" }],
+  "nav": [
+    { "link": "#landing", "name": "Landing" },
+    { "link": "#projects", "name": "Projects" },
+    { "link": "#contact", "name": "Contact" }
+  ],
   "projects": [
     {
       "title": "Community EMS",
