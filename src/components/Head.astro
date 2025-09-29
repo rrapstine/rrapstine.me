@@ -5,17 +5,10 @@ import '../styles/reset.css';
 
 const { title, description } = data;
 
-// Define critical assets for preloading
-const criticalFonts = [
-  {
-    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap',
-    type: 'style'
-  },
-  {
-    href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap',
-    type: 'style'
-  }
-];
+// Define font URLs - only defined once to avoid duplication
+const fontUrls = {
+  combined: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap'
+};
 
 // No landing image preload needed
 ---
@@ -39,22 +32,12 @@ const criticalFonts = [
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
   <link rel='preconnect' href='https://cdn.jsdelivr.net' crossorigin />
   
-  <!-- Critical CSS and font preloading -->
-  {criticalFonts.map((font) => (
-    <link 
-      rel="preload" 
-      href={font.href} 
-      as={font.type} 
-      crossorigin 
-      fetchpriority="high"
-    />
-  ))}
-  
   <!-- No hero image preload needed -->
   
-  <!-- Font stylesheets -->
+  <!-- Font stylesheet - loaded with proper attributes instead of preload -->
   <link
-    href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap'
+    href={fontUrls.combined}
     rel='stylesheet'
+    fetchpriority="high"
   />
 </head>
