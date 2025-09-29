@@ -4,10 +4,12 @@ import Navigation from '../components/Navigation.astro';
 import Landing from '../components/Landing.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
+import '../styles/reset.css';
+import '../styles/globals.scss';
 ---
 
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en' class='font-loading'>
   <Head />
   <body>
     <Navigation />
@@ -16,6 +18,59 @@ import Contact from '../components/Contact.astro';
       <Projects />
       <Contact />
     </main>
-    <script src="../utils/performance.js"></script>
+
+    <!-- Performance optimization script inlined to avoid additional HTTP request -->
+    <script>
+      // Font loading optimization
+      if (document.fonts) {
+        document.fonts.ready.then(() => {
+          document.documentElement.classList.remove('font-loading');
+          document.documentElement.classList.add('fonts-loaded');
+        });
+      } else {
+        // Fallback for browsers without FontFace API
+        setTimeout(() => {
+          document.documentElement.classList.remove('font-loading');
+          document.documentElement.classList.add('fonts-loaded');
+        }, 3000);
+      }
+
+      // Resource preloading on user interaction
+      let hasPreloaded = false;
+      const preloadResources = () => {
+        if (hasPreloaded) return;
+        hasPreloaded = true;
+
+        // Preload resume PDF
+        const resumeLink = document.createElement('link');
+        resumeLink.rel = 'preload';
+        resumeLink.href = '/assets/docs/resume.pdf';
+        resumeLink.as = 'document';
+        document.head.appendChild(resumeLink);
+      };
+
+      // Trigger preloading on first interaction
+      ['mouseenter', 'touchstart', 'scroll'].forEach(event => {
+        document.addEventListener(event, preloadResources, { 
+          once: true, 
+          passive: true 
+        });
+      });
+
+      // Performance monitoring
+      if ('performance' in window && 'measure' in performance) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const navigation = performance.getEntriesByType('navigation')[0];
+            if (navigation) {
+              console.log('Page load time:', navigation.loadEventEnd - navigation.fetchStart, 'ms');
+            }
+          }, 0);
+        });
+      }
+    </script>
+
+    <!-- Load non-critical JavaScript asynchronously -->
+    <script type="module" src="../utils/performance.js"></script>
   </body>
 </html>

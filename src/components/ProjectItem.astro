@@ -24,11 +24,14 @@ const { item } = Astro.props;
     <a href={item.url} target='_blank' class='mobile-project-link'>
       <OptimizedImage 
         src={item.image} 
-        alt={`${item.title} project screenshot`}
+        alt={`Screenshot of ${item.title} project showing the main interface and key features`}
         layout="constrained"
         width={800}
         height={450}
         fit="cover"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 320px"
+        loading="lazy"
+        decoding="async"
       />
     </a>
     <div class='project-overlay'>

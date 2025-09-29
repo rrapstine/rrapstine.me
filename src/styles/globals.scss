@@ -105,19 +105,7 @@
   --fs-bigheading: var(--font-size-6xl);
 }
 
-/* Modern Utility Classes */
-.text-primary {
-  color: var(--color-text-primary);
-}
-
-.text-secondary {
-  color: var(--color-text-secondary);
-}
-
-.text-muted {
-  color: var(--color-text-muted);
-}
-
+/* Essential Utility Classes (only used ones) */
 .text-accent {
   color: var(--color-accent-primary);
   background: var(--color-accent-gradient);
@@ -126,77 +114,10 @@
   background-clip: text;
 }
 
-.bg-primary {
-  background-color: var(--color-bg-primary);
-}
-
-.bg-secondary {
-  background-color: var(--color-bg-secondary);
-}
-
-.bg-tertiary {
-  background-color: var(--color-bg-tertiary);
-}
-
 .bg-card {
   background-color: var(--color-bg-card);
   backdrop-filter: blur(10px);
   border: 1px solid var(--color-border);
-}
-
-.font-primary {
-  font-family: var(--font-family-primary);
-}
-
-.font-accent {
-  font-family: var(--font-family-accent);
-}
-
-.text-xs {
-  font-size: var(--font-size-xs);
-}
-.text-sm {
-  font-size: var(--font-size-sm);
-}
-.text-base {
-  font-size: var(--font-size-base);
-}
-.text-lg {
-  font-size: var(--font-size-lg);
-}
-.text-xl {
-  font-size: var(--font-size-xl);
-}
-.text-2xl {
-  font-size: var(--font-size-2xl);
-}
-.text-3xl {
-  font-size: var(--font-size-3xl);
-}
-.text-4xl {
-  font-size: var(--font-size-4xl);
-}
-.text-5xl {
-  font-size: var(--font-size-5xl);
-}
-.text-6xl {
-  font-size: var(--font-size-6xl);
-}
-
-.font-light {
-  font-weight: var(--font-weight-light);
-}
-.font-regular {
-  font-weight: var(--font-weight-regular);
-}
-.font-medium {
-  font-weight: var(--font-weight-medium);
-}
-.font-semibold {
-  font-weight: var(--font-weight-semibold);
-}
-.font-bold {
-  font-weight: var(--font-weight-bold);
 }
 
 /* Legacy support */
@@ -409,42 +330,7 @@ a:hover::after {
   width: 100%;
 }
 
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-3) var(--space-6);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-card);
-  color: var(--color-text-primary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  backdrop-filter: blur(10px);
-}
-
-.btn:hover {
-  border-color: var(--color-accent-primary);
-  background: var(--color-accent-primary);
-  color: var(--color-text-primary);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-primary {
-  background: var(--color-accent-gradient);
-  border-color: transparent;
-  color: var(--color-text-primary);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-xl);
-}
+/* Buttons - Removed unused utility classes, keeping component-specific styles */
 
 /* Legacy support */
 .ff-body {

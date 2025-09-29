@@ -13,6 +13,7 @@ interface Props {
   layout?: 'constrained' | 'full-width' | 'fixed';
   fit?: 'cover' | 'contain' | 'fill' | 'none';
   position?: string;
+  priority?: boolean;
 }
 
 const {
@@ -21,17 +22,27 @@ const {
   width,
   height,
   class: className,
-  sizes = '100vw',
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px',
   loading = 'lazy',
   decoding = 'async',
   layout = 'constrained',
   fit = 'cover',
   position = 'center',
+  priority = false,
   ...rest
 } = Astro.props;
 
 // Determine if the src is a string (URL path) or an ImageMetadata object
 const isRemoteImage = typeof src === 'string';
+
+// Override loading behavior for priority images
+const optimizedLoading = priority ? 'eager' : loading;
+const optimizedDecoding = priority ? 'sync' : decoding;
+
+// Generate optimized sizes based on common breakpoints
+const optimizedSizes = sizes === '100vw' ? 
+  '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px' : 
+  sizes;
 ---
 
 {isRemoteImage ? (
@@ -41,9 +52,9 @@ const isRemoteImage = typeof src === 'string';
     width={width}
     height={height}
     class={className}
-    sizes={sizes}
-    loading={loading}
-    decoding={decoding}
+    sizes={optimizedSizes}
+    loading={optimizedLoading}
+    decoding={optimizedDecoding}
     layout={layout}
     fit={fit}
     position={position}
@@ -56,12 +67,59 @@ const isRemoteImage = typeof src === 'string';
     width={width || src.width}
     height={height || src.height}
     class={className}
-    sizes={sizes}
-    loading={loading}
-    decoding={decoding}
+    sizes={optimizedSizes}
+    loading={optimizedLoading}
+    decoding={optimizedDecoding}
     layout={layout}
     fit={fit}
     position={position}
     {...rest}
   />
 )}
+
+<style>
+  img {
+    /* Prevent layout shift during image loading */
+    max-width: 100%;
+    height: auto;
+    
+    /* Add a subtle background color while loading */
+    background-color: var(--color-bg-tertiary, #313244);
+    
+    /* Optimize image rendering */
+    image-rendering: optimizeQuality;
+    
+    /* Prevent text selection on images */
+    user-select: none;
+    -webkit-user-drag: none;
+    
+    /* Smooth transitions */
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Loading state */
+  img[loading="lazy"] {
+    opacity: 0;
+  }
+  
+  img[loading="lazy"].loaded {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Add loading state management for lazy-loaded images
+  document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    lazyImages.forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => {
+          img.classList.add('loaded');
+        });
+      }
+    });
+  });
+</script>
