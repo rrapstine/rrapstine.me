@@ -83,13 +83,17 @@ const navItems = nav.filter(item => item.name !== 'Landing');
     sections.forEach(section => observer.observe(section));
   }
 
-  // Initialize immediately for mobile menu toggle
-  initMobileMenu();
-  
-  // Initialize navigation features on DOM load (less time-critical)
-  document.addEventListener('DOMContentLoaded', () => {
+  // Make sure DOM is ready before initializing
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initMobileMenu();
+      initNavigation();
+    });
+  } else {
+    // DOM already ready
+    initMobileMenu();
     initNavigation();
-  });
+  }
 </script>
 
 <style lang='scss'>
