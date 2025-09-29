@@ -1,4 +1,4 @@
----
+ ---
 import Head from '../components/Head.astro';
 import Navigation from '../components/Navigation.astro';
 import Landing from '../components/Landing.astro';
@@ -22,22 +22,21 @@ import '../styles/globals.scss';
     <!-- Performance optimization script inlined to avoid additional HTTP request -->
     <script>
       // Font loading optimization
+      function handleFontsReady() {
+        document.documentElement.classList.remove('font-loading');
+        document.documentElement.classList.add('fonts-loaded');
+      }
+
       if (document.fonts) {
-        document.fonts.ready.then(() => {
-          document.documentElement.classList.remove('font-loading');
-          document.documentElement.classList.add('fonts-loaded');
-        });
+        document.fonts.ready.then(handleFontsReady);
       } else {
         // Fallback for browsers without FontFace API
-        setTimeout(() => {
-          document.documentElement.classList.remove('font-loading');
-          document.documentElement.classList.add('fonts-loaded');
-        }, 3000);
+        setTimeout(handleFontsReady, 3000);
       }
 
       // Resource preloading on user interaction
       let hasPreloaded = false;
-      const preloadResources = () => {
+      function preloadResources() {
         if (hasPreloaded) return;
         hasPreloaded = true;
 
@@ -47,10 +46,10 @@ import '../styles/globals.scss';
         resumeLink.href = '/assets/docs/resume.pdf';
         resumeLink.as = 'document';
         document.head.appendChild(resumeLink);
-      };
+      }
 
       // Trigger preloading on first interaction
-      ['mouseenter', 'touchstart', 'scroll'].forEach(event => {
+      ['mouseenter', 'touchstart', 'scroll'].forEach((event) => {
         document.addEventListener(event, preloadResources, { 
           once: true, 
           passive: true 
@@ -59,18 +58,218 @@ import '../styles/globals.scss';
 
       // Performance monitoring
       if ('performance' in window && 'measure' in performance) {
-        window.addEventListener('load', () => {
+        function handlePerformanceLoad() {
           setTimeout(() => {
             const navigation = performance.getEntriesByType('navigation')[0];
             if (navigation) {
               console.log('Page load time:', navigation.loadEventEnd - navigation.fetchStart, 'ms');
             }
           }, 0);
-        });
+        }
+
+        window.addEventListener('load', handlePerformanceLoad);
       }
     </script>
 
     <!-- Load non-critical JavaScript asynchronously -->
-    <script type="module" src="../utils/performance.js"></script>
+    <script type="module" is:inline>
+      // Lazy Loading Utility - Inline Implementation
+      const defaultOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      };
+
+      function initLazyLoad(selector, loadCallback, options = defaultOptions) {
+        if (!("IntersectionObserver" in window)) {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach((element) => loadCallback(element));
+          return;
+        }
+
+        function handleIntersection(entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              loadCallback(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        }
+
+        const observer = new IntersectionObserver(handleIntersection, options);
+
+        document.querySelectorAll(selector).forEach((element) => {
+          observer.observe(element);
+        });
+
+        return observer;
+      }
+
+      function lazyLoadImages(selector = "[data-lazy-image]") {
+        function loadImageElement(element) {
+          if (element.tagName === "IMG") {
+            if (element.dataset.src) {
+              element.src = element.dataset.src;
+            }
+            if (element.dataset.srcset) {
+              element.srcset = element.dataset.srcset;
+            }
+          } else if (element.tagName === "SOURCE") {
+            if (element.dataset.srcset) {
+              element.srcset = element.dataset.srcset;
+            }
+          }
+          element.classList.add("loaded");
+        }
+
+        initLazyLoad(selector, loadImageElement);
+      }
+
+      // Performance Monitoring - Inline Implementation
+      const ENABLE_PERFORMANCE_MONITORING = true; // Simplified for inline use
+
+      function initPerformanceMonitoring() {
+        if (!ENABLE_PERFORMANCE_MONITORING || !("performance" in window)) return;
+
+        function handleLoadEvent() {
+          setTimeout(() => {
+            collectMetrics();
+          }, 0);
+        }
+
+        window.addEventListener("load", handleLoadEvent);
+      }
+
+      function collectMetrics() {
+        try {
+          const timing = performance.getEntriesByType("navigation")[0];
+          const resources = performance.getEntriesByType("resource");
+          
+          let lcp;
+          const lcpEntries = performance.getEntriesByType("largest-contentful-paint");
+          if (lcpEntries && lcpEntries.length > 0) {
+            lcp = lcpEntries[lcpEntries.length - 1];
+          }
+
+          const metrics = {
+            ttfb: timing ? timing.responseStart - timing.requestStart : null,
+            fcp: null,
+            lcp: lcp ? lcp.startTime : null,
+            domLoad: timing ? timing.domContentLoadedEventEnd - timing.startTime : null,
+            windowLoad: timing ? timing.loadEventEnd - timing.startTime : null,
+            resourceCount: resources.length,
+            totalResourceSize: resources.reduce((total, resource) => total + (resource.transferSize || 0), 0) / 1024,
+          };
+
+          const paintEntries = performance.getEntriesByType("paint");
+          const fcpEntry = paintEntries.find((entry) => entry.name === "first-contentful-paint");
+          metrics.fcp = fcpEntry ? fcpEntry.startTime : null;
+
+          console.log("%c📊 Performance Metrics", "font-weight: bold; font-size: 14px; color: #53169c;");
+          console.table({
+            "TTFB (ms)": metrics.ttfb ? Math.round(metrics.ttfb) : "N/A",
+            "First Contentful Paint (ms)": metrics.fcp ? Math.round(metrics.fcp) : "N/A",
+            "DOM Content Loaded (ms)": metrics.domLoad ? Math.round(metrics.domLoad) : "N/A",
+            "Window Load (ms)": metrics.windowLoad ? Math.round(metrics.windowLoad) : "N/A",
+            "Resource Count": metrics.resourceCount,
+            "Total Size (KB)": Math.round(metrics.totalResourceSize),
+          });
+        } catch (error) {
+          console.error("Error collecting performance metrics:", error);
+        }
+      }
+
+      // Enhanced Performance Optimizations - Inline Implementation
+      function optimizeScrollPerformance() {
+        let ticking = false;
+
+        function updateNavOnScroll() {
+          const nav = document.querySelector("nav");
+          if (nav) {
+            const scrolled = window.scrollY > 100;
+            nav.classList.toggle("scrolled", scrolled);
+          }
+          ticking = false;
+        }
+
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(updateNavOnScroll);
+            ticking = true;
+          }
+        }
+
+        window.addEventListener("scroll", requestTick, { passive: true });
+      }
+
+      function preloadCriticalResources() {
+        let hasPreloaded = false;
+
+        function preloadHandler() {
+          if (hasPreloaded) return;
+          hasPreloaded = true;
+
+          const resumeLink = document.createElement("link");
+          resumeLink.rel = "preload";
+          resumeLink.href = "/assets/docs/resume.pdf";
+          resumeLink.as = "document";
+          document.head.appendChild(resumeLink);
+
+          const projectImages = document.querySelectorAll('img[loading="lazy"]');
+          projectImages.forEach((img) => {
+            if (img.getBoundingClientRect().top < window.innerHeight * 2) {
+              const linkEl = document.createElement("link");
+              linkEl.rel = "preload";
+              linkEl.href = img.src;
+              linkEl.as = "image";
+              document.head.appendChild(linkEl);
+            }
+          });
+        }
+
+        ["mouseenter", "touchstart", "scroll"].forEach((event) => {
+          document.addEventListener(event, preloadHandler, {
+            once: true,
+            passive: true,
+          });
+        });
+      }
+
+      // Initialize all performance optimizations
+      function initPerformanceOptimizations() {
+        lazyLoadImages();
+        initPerformanceMonitoring();
+        optimizeScrollPerformance();
+        preloadCriticalResources();
+
+        if (document.fonts) {
+        function handleFontsReady() {
+          document.body.classList.add("fonts-loaded");
+        }
+
+        document.fonts.ready.then(handleFontsReady);
+        }
+
+        function handleBeforeUnload() {
+          // Clean up any performance observers or intervals
+        }
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+      }
+
+      // Initialize when DOM is ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPerformanceOptimizations);
+      } else {
+        initPerformanceOptimizations();
+      }
+
+      // Listen for route changes in SPA mode (if applicable in the future)
+      function handleAstroPageLoad() {
+        initPerformanceOptimizations();
+      }
+
+      document.addEventListener("astro:page-load", handleAstroPageLoad);
+    </script>
   </body>
 </html>
