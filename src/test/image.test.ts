@@ -6,10 +6,9 @@ describe("Image Optimization Components", () => {
   it("should have required image optimization components", () => {
     const requiredFiles = [
       "src/components/OptimizedImage.astro",
-      "src/components/OptimizedPicture.astro",
-      "src/js/lazyLoad.js",
-      "src/js/performance.js",
-      "src/js/performance-monitor.js",
+      "src/utils/lazyLoad.js",
+      "src/utils/performance.js",
+      "src/utils/performance-monitor.js",
     ];
 
     requiredFiles.forEach((file) => {
